@@ -156,7 +156,6 @@ body {
     width: min(80%, 460px);
     aspect-ratio: 1;
     align-self: center;
-    margin: 2em 0;
 }
 
 .cell {
@@ -184,4 +183,8 @@ body {
     padding: 0.4em 0;
     background-color: white;
     border-radius: 10px;
+}
+
+.menu-button.active {
+    background-color: rgba(0,0,0,0.3);
 }

@@ -18,7 +18,7 @@ export function checkPlacement(coord: Coordinate, shipLength: number, vector: Ve
             cells.set({ x, y }, false);
         }
 
-        cells.set({ x, y }, true);
+        else cells.set({ x, y }, true);
     }
 
     return { isValid, cells };

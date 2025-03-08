@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "noImplicitAny": false,
+        "strict": false,
+        "strictNullChecks": false,
+        "strictPropertyInitialization": false,
+        "useUnknownInCatchVariables": false,
+        "module": "ESNext",
+        "target": "ESNext",
+        "allowJs": false,
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "esModuleInterop": true
+    }
+}

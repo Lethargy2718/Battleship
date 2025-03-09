@@ -7,39 +7,52 @@
 </head>
 <body>
         <main class="main container">
-            <div class="ship-list-container">
-                <ul class="ship-list">
-                    <li class="ship-list__item">
-                        <h4>Battleship</h4>
-                        <img src="assets/Battleships/battleship.svg" class="ship__img" id="battleshipImg" data-ship="battleship" alt="Battleship">
-                    </li>
-                    <li class="ship-list__item">
-                        <h4>Destroyer</h4>
-                        <img src="assets/Battleships/destroyer.svg" class="ship__img" id="destroyerImg" data-ship="destroyer" alt="Destroyer">
-                    </li>
-                    <li class="ship-list__item">
-                        <h4>Patrol</h4>
-                        <img src="assets/Battleships/patrol.svg" class="ship__img" id="patrolImg" data-ship="patrol" alt="Patrol">
-                    </li>
-                    <li class="ship-list__item">
-                        <h4>Submarine</h4>
-                        <img src="assets/Battleships/submarine.svg" class="ship__img" id="submarineImg" data-ship="submarine" alt="Submarine">
-                    </li>
-                </ul>
-            </div>
-
+            
             <div class="button-list direction-button-list">
                 <button class="menu-button active" id="horizontalBtn">Horizontal</button>
                 <button class="menu-button" id="verticalBtn">Vertical</button>
             </div>
 
             <div class="game-board"></div>
-
+            
             <div class="button-list">
                 <button class="menu-button">Start</button>
                 <button class="menu-button">Reset</button>
                 <button class="menu-button">Random</button>
             </div>
+
+            <ul class="ship-list">
+                <li class="ship-list__item">
+                    <h4>Battleship</h4>
+                    <div class="img-container">
+                        <img src="assets/Battleships/battleship.svg" class="ship__img" id="battleshipImg" data-ship="battleship" alt="battleship">
+                    </div>
+                </li>
+                <li class="ship-list__item">
+                    <h4>Submarine</h4>
+                    <div class="img-container">
+                        <img src="assets/Battleships/submarine.svg" class="ship__img" id="submarineImg" data-ship="submarine" alt="Submarine">
+                    </div>
+                </li>
+                <li class="ship-list__item">
+                    <h4>Carrier</h4>
+                    <div class="img-container">
+                        <img src="assets/Battleships/carrier.svg" class="ship__img" id="carrierImg" data-ship="carrier" alt="carrier">
+                    </div>
+                </li>
+                <li class="ship-list__item">
+                    <h4>Cruiser</h4>
+                    <div class="img-container">
+                        <img src="assets/Battleships/cruiser.svg" class="ship__img" id="cruiserImg" data-ship="cruiser" alt="cruiser">
+                    </div>
+                </li>
+                <li class="ship-list__item">
+                    <h4>Destroyer</h4>
+                    <div class="img-container">
+                        <img src="assets/Battleships/destroyer.svg" class="ship__img" id="destroyerImg" data-ship="destroyer" alt="destroyer">
+                    </div>
+                </li>
+            </ul>
         </main>    
-</body>
-</html>
+    </body>
+    </html>

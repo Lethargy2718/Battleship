@@ -114,28 +114,30 @@ body {
 
 /* Ship list */
 
+
 .ship-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 2em;
-    
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+    overflow-x: auto;
+    border: 1px solid black;
+    width: 100%;
+    max-width: 900px;
+    min-height: 6.5rem;
 }
 
 .ship-list__item {
-    border-radius: 1rem;
-    flex-grow: 1;
-    flex-shrink: 0;
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
+    padding: 1em 1em;
     align-items: center;
-    justify-content: space-between;
-    padding: 1em 0;
 }
 
-.ship__img {
-    height: 2rem;
-    width: auto;
+.img-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .ship__img:hover {
@@ -146,9 +148,46 @@ body {
     cursor: grabbing;
 }
 
+#battleshipImg {
+    aspect-ratio: 299 / 95;
+}
+
+#carrierImg {
+    aspect-ratio: 302 / 98;
+}
+
+#cruiserImg {
+    aspect-ratio: 153 / 69;
+}
+
+#destroyerImg {
+    aspect-ratio: 112 / 60;
+}
+
+#submarineImg {
+    aspect-ratio: 302 / 98;
+    transform: translateY(15.5%); /* the svg is a little wonky */
+}
+
+.ship-list::-webkit-scrollbar {
+    height: 5px;
+}
+.ship-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.ship-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.ship-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
 /* Board */
 
 .game-board {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
@@ -167,6 +206,27 @@ body {
     cursor: pointer;
 }
 
+.cell.ship__hover {
+    background-color: lightgreen;
+}
+
+.cell.invalid {
+    background-color: red;
+}
+
+.board__ship-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 10%;
+}
+
+.board__ship {
+    max-width: none;
+    width: 90%;
+    height: 95%;
+}
 /* Button list */
 
 .button-list {
@@ -178,9 +238,9 @@ body {
 
 .menu-button {
     flex: 1;
-    max-width: 150px;
+    max-width: 120px;
     text-align: center;
-    padding: 0.4em 0;
+    padding: 0.1em 0;
     background-color: white;
     border-radius: 10px;
 }

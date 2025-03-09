@@ -16,20 +16,8 @@ export function checkPlacement(coord: Coordinate, shipLength: number, vector: Ve
         if (grid[x][y]) {
             isValid = false;
             cells.set({ x, y }, false);
-        }
-
-        else cells.set({ x, y }, true);
+        } else cells.set({ x, y }, true);
     }
 
     return { isValid, cells };
-}
-
-export function handlePlacement(coord: Coordinate, shipLength: number, vector: Vector, grid: string[][]) {
-    const results = checkPlacement(coord, shipLength, vector, grid);
-    console.log(results.cells);
-    if (results.isValid) {
-        return true;
-    } else {
-        return false;
-    }
 }

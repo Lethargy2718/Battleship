@@ -1,13 +1,15 @@
 export enum Ship {
+    Carrier = "carrier",
     Battleship = "battleship",
+    Cruiser = "cruiser",
     Submarine = "submarine",
     Destroyer = "destroyer",
-    Patrol = "patrol",
 }
 
 export const shipToLength: Record<Ship, number> = {
     [Ship.Battleship]: 5,
     [Ship.Submarine]: 4,
-    [Ship.Destroyer]: 3,
-    [Ship.Patrol]: 2,
+    [Ship.Cruiser]: 3,
+    [Ship.Carrier]: 3,
+    [Ship.Destroyer]: 2,
 };

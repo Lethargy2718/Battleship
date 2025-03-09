@@ -26,7 +26,7 @@ describe("HandlePlacement properly handles drop spot validity", () => {
     });
 
     test("Handles vertical valid ships", () => {
-            const grid = createGrid();
+        const grid = createGrid();
         const coord = { x: 2, y: 3 };
         const shipLength = 3;
         const vector = { dx: 1, dy: 0 }; // vertical
@@ -59,7 +59,7 @@ describe("HandlePlacement properly handles drop spot validity", () => {
             ]),
         );
     });
-    
+
     test("Handles vertical out of bounds ships", () => {
         const grid = createGrid();
         const coord = { x: 8, y: 3 };
@@ -76,7 +76,7 @@ describe("HandlePlacement properly handles drop spot validity", () => {
             ]),
         );
     });
-    
+
     test("Handles horizontal colliding ships", () => {
         const grid = createGrid();
         grid[3][3] = "occupied";
@@ -95,7 +95,7 @@ describe("HandlePlacement properly handles drop spot validity", () => {
             ]),
         );
     });
-    
+
     test("Handles vertical colliding ships", () => {
         const grid = createGrid();
         grid[4][5] = "occupied";
@@ -115,7 +115,7 @@ describe("HandlePlacement properly handles drop spot validity", () => {
             ]),
         );
     });
-    
+
     test("Handles horizontal colliding and out of bounds ships", () => {
         const grid = createGrid();
         grid[2][8] = "occupied";
@@ -134,7 +134,7 @@ describe("HandlePlacement properly handles drop spot validity", () => {
             ]),
         );
     });
-    
+
     test("Handles vertical colliding and out of bounds ships", () => {
         const grid = createGrid();
         grid[8][2] = "occupied";
@@ -153,7 +153,7 @@ describe("HandlePlacement properly handles drop spot validity", () => {
             ]),
         );
     });
-    
+
     test("Handles (0,0) placement", () => {
         const grid = createGrid();
         const coord = { x: 0, y: 0 };
@@ -171,7 +171,7 @@ describe("HandlePlacement properly handles drop spot validity", () => {
             ]),
         );
     });
-    
+
     test("Handles (9,9) placement", () => {
         const grid = createGrid();
         const coord = { x: 9, y: 9 };
@@ -181,10 +181,6 @@ describe("HandlePlacement properly handles drop spot validity", () => {
         const result = checkPlacement(coord, shipLength, vector, grid);
 
         expect(result.isValid).toBe(false);
-        expect(result.cells).toEqual(
-            new Map([
-                [{ x: 9, y: 9 }, true],
-            ]),
-        );
+        expect(result.cells).toEqual(new Map([[{ x: 9, y: 9 }, true]]));
     });
-}); 
+});

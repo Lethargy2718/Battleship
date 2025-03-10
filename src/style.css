@@ -114,7 +114,6 @@ body {
 
 /* Ship list */
 
-
 .ship-list {
     align-self: center;
     display: flex;
@@ -140,11 +139,11 @@ body {
     align-items: center;
 }
 
-.ship__img:hover {
+.ship__img[draggable=true]:hover {
     cursor: grab;
 }
 
-.ship__img:active {
+.ship__img[draggable=true]:active {
     cursor: grabbing;
 }
 
@@ -220,13 +219,17 @@ body {
     align-items: center;
     position: absolute;
     height: 10%;
+    &.vertical {
+        transform-origin: top left;
+        transform: rotate(90deg) translateY(-100%);
+    }
 }
 
 .board__ship {
-    max-width: none;
     width: 90%;
     height: 95%;
 }
+
 /* Button list */
 
 .button-list {

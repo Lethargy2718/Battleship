@@ -1,8 +1,7 @@
 import { Coordinate, Vector, directionToVector, Ship, shipToLength } from "../types";
-import { getGridMatrix } from "../managers/main-menu-dom-manager";
+import { getGridHTMLMatrix, getGridMatrix } from "../managers/main-menu-dom-manager";
 import resetGridClasses from "../utils/reset-grid-classes";
 import getDirection from "./direction-manager";
-import createGrid from "../utils/create-grid-matrix";
 import { checkPlacement } from "../utils/placement-utils";
 import createShip from "../utils/create-ship";
 
@@ -10,15 +9,17 @@ import createShip from "../utils/create-ship";
 
 let currentImg: HTMLImageElement;
 let placementData = null;
-const grid = createGrid();
-const gridHTMLMatrix = getGridMatrix();
+const gridHTMLMatrix = getGridHTMLMatrix();
 const gameboard: HTMLDivElement | null = document.querySelector(".game-board");
 
 /**********************************************/
 
-Array.from(document.querySelectorAll(".ship__img")).forEach((img) => {
-    (img as HTMLImageElement).addEventListener("dragstart", onDragStart);
-});
+export function bindDragListeners() {
+    const images: HTMLImageElement[] = Array.from(document.querySelectorAll(".ship__img"));
+    images.forEach((img) => {
+        (img as HTMLImageElement).addEventListener("dragstart", onDragStart);
+    });
+}
 
 /**********************************************/
 
@@ -39,7 +40,7 @@ function onDragEnter(e: DragEvent) {
     const cellX = +(cell.getAttribute("data-x") || 0);
     const cellY = +(cell.getAttribute("data-y") || 0);
     resetGridClasses(gridHTMLMatrix);
-    placementData = handlePlacement({ x: cellX, y: cellY }, length, vector, grid);
+    placementData = handlePlacement({ x: cellX, y: cellY }, length, vector, getGridMatrix());
 }
 
 function onDragEnd(e: DragEvent) {
@@ -74,7 +75,7 @@ function handlePlacement(coord: Coordinate, shipLength: number, vector: Vector, 
 function placeShip(startingCell: Coordinate, ship: Ship): void {
     if (!startingCell || !ship || !currentImg || !placementData) return;
 
-    updateGrid(grid, placementData?.cells.keys(), ship);
+    updateGrid(getGridMatrix(), placementData?.cells.keys(), ship);
     const shipDiv = createShip(startingCell, ship, currentImg);
     gameboard?.appendChild(shipDiv);
 }

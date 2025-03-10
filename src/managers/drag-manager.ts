@@ -1,24 +1,26 @@
 import { Coordinate, Vector, directionToVector, Ship, shipToLength } from "../types";
 import { getGridMatrix } from "../managers/main-menu-dom-manager";
-import resetGridClasses from "../utils/reset-grid-classes.ts";
-import getDirection from "./direction-manager.ts";
-import createGrid from "../utils/create-grid-matrix.ts";
-import { checkPlacement } from "../utils/placement-utils.ts";
+import resetGridClasses from "../utils/reset-grid-classes";
+import getDirection from "./direction-manager";
+import createGrid from "../utils/create-grid-matrix";
+import { checkPlacement } from "../utils/placement-utils";
+import createShip from "../utils/create-ship";
 
 /**********************************************/
 
 let currentImg: HTMLImageElement;
-let startingCell: Coordinate;
+let placementData = null;
 const grid = createGrid();
 const gridHTMLMatrix = getGridMatrix();
+const gameboard: HTMLDivElement | null = document.querySelector(".game-board");
 
 /**********************************************/
-
-const gameboard: HTMLDivElement | null = document.querySelector(".game-board");
 
 Array.from(document.querySelectorAll(".ship__img")).forEach((img) => {
     (img as HTMLImageElement).addEventListener("dragstart", onDragStart);
 });
+
+/**********************************************/
 
 function onDragStart(e: DragEvent) {
     currentImg = e.target as HTMLImageElement;
@@ -30,22 +32,29 @@ function onDragStart(e: DragEvent) {
 function onDragEnter(e: DragEvent) {
     const cell = (e.target as HTMLElement).closest(".cell") as HTMLDivElement;
     if (!cell) return;
+
     const currentShip = currentImg?.getAttribute("data-ship") || Ship.Battleship;
     const length: number = shipToLength[currentShip];
     const vector: Vector = directionToVector[getDirection()];
     const cellX = +(cell.getAttribute("data-x") || 0);
     const cellY = +(cell.getAttribute("data-y") || 0);
     resetGridClasses(gridHTMLMatrix);
-    startingCell = handlePlacement({ x: cellX, y: cellY }, length, vector, grid);
+    placementData = handlePlacement({ x: cellX, y: cellY }, length, vector, grid);
 }
 
-function onDragEnd() {
-    if (!currentImg) return;
-    currentImg.classList.remove("dragging");
-    currentImg.removeEventListener("dragend", onDragEnd);
-    gameboard?.removeEventListener("dragenter", onDragEnter);
+function onDragEnd(e: DragEvent) {
+    if (!currentImg || !placementData) return;
+    removeListeners(currentImg);
+    if (placementData.isValid) {
+        const startingCell = placementData?.cells.keys().next().value;
+        const currentShip = (currentImg.getAttribute("data-ship") as Ship) || Ship.Battleship;
+        placeShip(startingCell, currentShip);
+        disableDrag(currentImg);
+    }
+
     resetGridClasses(gridHTMLMatrix);
-    placeShip();
+    currentImg = null;
+    placementData = null;
 }
 
 /**********************************************/
@@ -58,25 +67,31 @@ function handlePlacement(coord: Coordinate, shipLength: number, vector: Vector, 
         else gridHTMLMatrix[x][y].classList.add("invalid");
     }
 
-    return results.isValid ? results.cells.keys().next().value : null;
+    return results;
 }
 
-function placeShip() {
-    if (!startingCell) return;
-    const div = document.createElement("div");
-    const { x, y } = startingCell;
-    const top = `${x * 10}%`;
-    const left = `${y * 10}%`;
-    const ship = currentImg.getAttribute("data-ship") || Ship.Battleship;
-    const shipLength = shipToLength[ship];
+// This function is only called when placement is valid
+function placeShip(startingCell: Coordinate, ship: Ship): void {
+    if (!startingCell || !ship || !currentImg || !placementData) return;
 
-    div.classList.add("board__ship-container");
-    div.style.top = top;
-    div.style.left = left;
-    div.style.width = `${10 * shipLength}%`;
+    updateGrid(grid, placementData?.cells.keys(), ship);
+    const shipDiv = createShip(startingCell, ship, currentImg);
+    gameboard?.appendChild(shipDiv);
+}
 
-    currentImg.classList.add("board__ship");
-    currentImg.style.aspectRatio = `${shipLength} / 1`;
-    div.appendChild(currentImg);
-    gameboard?.appendChild(div);
+function updateGrid(grid: String[][], coordinates: Coordinate[], ship: Ship): void {
+    for (const { x, y } of coordinates) {
+        grid[x][y] = ship;
+    }
+}
+
+function removeListeners(img: HTMLImageElement): void {
+    img.removeEventListener("dragend", onDragEnd);
+    gameboard?.removeEventListener("dragenter", onDragEnter);
+}
+
+function disableDrag(img: HTMLImageElement): void {
+    img.classList.remove("dragging");
+    img.setAttribute("draggable", "false");
+    img.removeEventListener("dragstart", onDragStart);
 }

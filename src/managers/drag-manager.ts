@@ -71,7 +71,7 @@ function handlePlacement(coord: Coordinate, shipLength: number, vector: Vector, 
     return results;
 }
 
-export function removeListeners(img: HTMLImageElement): void {
+function removeListeners(img: HTMLImageElement): void {
     img?.removeEventListener("dragend", onDragEnd);
     gameboard?.removeEventListener("dragenter", onDragEnter);
 }

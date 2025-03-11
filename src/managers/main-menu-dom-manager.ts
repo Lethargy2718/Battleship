@@ -44,7 +44,6 @@ resetBtn?.addEventListener("click", () => {
 randomBtn?.addEventListener("click", () => {
     resetBoard();
     const shipToImg = getShipToImg();
-    console.log(shipToImg);
     Object.values(shipToImg).forEach(disableDrag);
     createRandomBoard();
 });

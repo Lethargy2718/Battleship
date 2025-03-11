@@ -1,13 +1,11 @@
-import { Coordinate, Ship, shipToLength } from "../types";
-import getDirection from "../managers/direction-manager";
+import { Coordinate, Ship, shipToLength, Direction } from "../types";
 
-export default function createShip(startingCell: Coordinate, ship: Ship, image: HTMLImageElement): HTMLDivElement {
+export default function createShip(startingCell: Coordinate, ship: Ship, image: HTMLImageElement, direction: Direction): HTMLDivElement {
     const { x, y } = startingCell;
     const div = document.createElement("div");
     const top = `${x * 10}%`;
     const left = `${y * 10}%`;
     const shipLength = shipToLength[ship];
-    const direction = getDirection();
 
     div.classList.add("board__ship-container");
     if (direction === "bottom") div.classList.add("vertical");

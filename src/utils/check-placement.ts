@@ -1,4 +1,4 @@
-import { Coordinate, Vector } from "../types/direction";
+import { Coordinate, Vector } from "../types";
 
 export function checkPlacement(coord: Coordinate, shipLength: number, vector: Vector, grid: string[][]) {
     const cells = new Map<Coordinate, boolean>();
@@ -21,3 +21,5 @@ export function checkPlacement(coord: Coordinate, shipLength: number, vector: Ve
 
     return { isValid, cells };
 }
+
+

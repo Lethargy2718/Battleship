@@ -1,6 +1,6 @@
 import { test, describe, expect } from "@jest/globals";
 import createGrid from "../src/utils/create-grid-matrix";
-import { checkPlacement } from "../src/utils/placement-utils";
+import { checkPlacement } from "../src/utils/check-placement";
 
 // horizontal: { dx: 0, dy: 1 }
 // vertical: { dx: 1, dy : 0 }

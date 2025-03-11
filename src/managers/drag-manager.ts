@@ -1,14 +1,14 @@
-import { Coordinate, Vector, directionToVector, Ship, shipToLength } from "../types";
+import { Coordinate, Vector, directionToVector, Ship, shipToLength, PlacementData } from "../types";
 import { getGridHTMLMatrix, getGridMatrix } from "../managers/main-menu-dom-manager";
 import resetGridClasses from "../utils/reset-grid-classes";
 import getDirection from "./direction-manager";
-import { checkPlacement } from "../utils/placement-utils";
-import createShip from "../utils/create-ship";
+import { checkPlacement } from "../utils/check-placement";
+import { placeShip } from "../utils/place-ship";
 
 /**********************************************/
 
-let currentImg: HTMLImageElement;
-let placementData = null;
+let currentImg: HTMLImageElement | null;
+let placementData: PlacementData | null;
 const gridHTMLMatrix = getGridHTMLMatrix();
 const gameboard: HTMLDivElement | null = document.querySelector(".game-board");
 
@@ -43,13 +43,13 @@ function onDragEnter(e: DragEvent) {
     placementData = handlePlacement({ x: cellX, y: cellY }, length, vector, getGridMatrix());
 }
 
-function onDragEnd(e: DragEvent) {
+function onDragEnd() {
     if (!currentImg || !placementData) return;
     removeListeners(currentImg);
     if (placementData.isValid) {
         const startingCell = placementData?.cells.keys().next().value;
         const currentShip = (currentImg.getAttribute("data-ship") as Ship) || Ship.Battleship;
-        placeShip(startingCell, currentShip);
+        placeShip(startingCell, getDirection(), currentShip, currentImg, placementData);
         disableDrag(currentImg);
     }
 
@@ -71,27 +71,12 @@ function handlePlacement(coord: Coordinate, shipLength: number, vector: Vector, 
     return results;
 }
 
-// This function is only called when placement is valid
-function placeShip(startingCell: Coordinate, ship: Ship): void {
-    if (!startingCell || !ship || !currentImg || !placementData) return;
-
-    updateGrid(getGridMatrix(), placementData?.cells.keys(), ship);
-    const shipDiv = createShip(startingCell, ship, currentImg);
-    gameboard?.appendChild(shipDiv);
-}
-
-function updateGrid(grid: String[][], coordinates: Coordinate[], ship: Ship): void {
-    for (const { x, y } of coordinates) {
-        grid[x][y] = ship;
-    }
-}
-
-function removeListeners(img: HTMLImageElement): void {
-    img.removeEventListener("dragend", onDragEnd);
+export function removeListeners(img: HTMLImageElement): void {
+    img?.removeEventListener("dragend", onDragEnd);
     gameboard?.removeEventListener("dragenter", onDragEnter);
 }
 
-function disableDrag(img: HTMLImageElement): void {
+export function disableDrag(img: HTMLImageElement): void {
     img.classList.remove("dragging");
     img.setAttribute("draggable", "false");
     img.removeEventListener("dragstart", onDragStart);

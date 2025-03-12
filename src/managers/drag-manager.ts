@@ -4,6 +4,7 @@ import resetGridClasses from "../utils/reset-grid-classes";
 import getDirection from "./direction-manager";
 import { checkPlacement } from "../utils/check-placement";
 import { placeShip } from "../utils/place-ship";
+import { updateGrid } from "../utils/update-grid";
 
 /**********************************************/
 
@@ -49,7 +50,9 @@ function onDragEnd() {
     if (placementData.isValid) {
         const startingCell = placementData?.cells.keys().next().value;
         const currentShip = (currentImg.getAttribute("data-ship") as Ship) || Ship.Battleship;
-        placeShip(startingCell, getDirection(), currentShip, currentImg, placementData);
+        const cells = Array.from(placementData.cells.keys());
+        updateGrid(getGridMatrix(), cells, currentShip);
+        placeShip(startingCell, getDirection(), currentShip, currentImg, cells, gameboard, );
         disableDrag(currentImg);
     }
 

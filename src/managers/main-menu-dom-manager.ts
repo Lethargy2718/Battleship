@@ -2,30 +2,16 @@ import drawGrid from "../utils/create-menu-grid";
 import resetBoard from "../utils/reset-board";
 import createGridMatrix from "../utils/create-grid-matrix";
 import { bindDragListeners, disableDrag } from "./drag-manager";
-import createRandomBoard from "../utils/create-random-board";
+import { createRandomBoard, fillBoard } from "../utils/create-random-board";
 import { Ship } from "../types";
+import createMainMenu from "../pages/menu-gen";
 
-export const getGridHTMLMatrix = () => gridHTMLMatrix;
-export const getGridMatrix = () => gridMatrix;
-export const setGridMatrix = (newGridMatrix: string[][]) => (gridMatrix = newGridMatrix);
-export function getShipToImg() {
-    const shipList: HTMLUListElement | null = document.querySelector(".ship-list");
-    if (!shipList) throw new Error("No ship list found");
-
-    return Array.from(shipList.children).reduce(
-        (acc, listItem) => {
-            const shipImg: HTMLImageElement | null = listItem.querySelector(".ship__img");
-            if (!shipImg) throw new Error("No ship image found");
-            const ship = shipImg.getAttribute("data-ship");
-            acc[ship || Ship.Battleship] = shipImg;
-            return acc;
-        },
-        {} as Record<Ship, HTMLImageElement>,
-    );
-}
+const menu = createMainMenu();
+document.body.appendChild(menu);
 
 /*****************************/
 
+const gameboard: HTMLDivElement | null = document.querySelector(".game-board");
 const gridHTMLMatrix = drawGrid();
 let gridMatrix = createGridMatrix();
 
@@ -35,6 +21,7 @@ bindDragListeners();
 
 const resetBtn: HTMLButtonElement | null = document.querySelector("#resetBtn");
 const randomBtn: HTMLButtonElement | null = document.querySelector("#randomBtn");
+const startBtn: HTMLButtonElement | null = document.querySelector("#startBtn");
 
 resetBtn?.addEventListener("click", () => {
     resetBoard();
@@ -42,8 +29,32 @@ resetBtn?.addEventListener("click", () => {
 });
 
 randomBtn?.addEventListener("click", () => {
+    if (!gameboard) return;
     resetBoard();
     const shipToImg = getShipToImg();
     Object.values(shipToImg).forEach(disableDrag);
-    createRandomBoard();
+    const randomBoard = createRandomBoard();
+    fillBoard(randomBoard.shipPlacement, randomBoard.grid, gameboard);
+
 });
+
+startBtn?.addEventListener("click", () => {
+
+});
+
+/*****************************/
+
+export const getGridHTMLMatrix = () => gridHTMLMatrix;
+export const getGridMatrix = () => gridMatrix;
+export const setGridMatrix = (newGridMatrix: string[][]) => (gridMatrix = newGridMatrix);
+export function getShipToImg() {
+    const ships = document.querySelectorAll("[data-ship]");
+    return Array.from(ships).reduce(
+        (acc, shipImg) => {
+            const ship = shipImg.getAttribute("data-ship");
+            acc[ship] = shipImg;
+            return acc;
+        },
+        {} as Record<Ship, HTMLImageElement>,
+    );
+}

@@ -21,5 +21,3 @@ export function checkPlacement(coord: Coordinate, shipLength: number, vector: Ve
 
     return { isValid, cells };
 }
-
-

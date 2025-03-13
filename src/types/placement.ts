@@ -10,5 +10,4 @@ export interface ShipPlacement {
     ship: Ship;
     direction: Direction;
     startingCell: Coordinate;
-    cells: Coordinate[];
 }

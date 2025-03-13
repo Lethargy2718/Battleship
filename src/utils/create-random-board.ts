@@ -1,8 +1,6 @@
-import { getShipToImg } from "../managers/main-menu-dom-manager";
 import { Coordinate, Ship, shipToLength, Vector, directionToVector, Direction, ShipPlacement } from "../types";
 import { checkPlacement } from "./check-placement";
 import createGridMatrix from "./create-grid-matrix";
-import { placeShip } from "./place-ship";
 import { updateGrid } from "./update-grid";
 
 // This function most only be called after resetting the board.
@@ -31,7 +29,6 @@ export function createRandomBoard() {
                     startingCell: startingCell,
                     direction: randomDirection,
                     ship: ship,
-                    cells: cells,
                 });
                 updateGrid(grid, cells, ship);
                 break;
@@ -42,15 +39,7 @@ export function createRandomBoard() {
     return {
         shipPlacement: shipPlacement,
         grid: grid,
-    }
-}
-
-export function fillBoard(shipPlacementArr: ShipPlacement[], grid: string[][], gameBoard: HTMLDivElement): void {
-    const shipToImg = getShipToImg();
-    for (const { startingCell, direction, ship, cells } of shipPlacementArr) {
-        const img = shipToImg[ship];
-        placeShip(startingCell, direction, ship, img, cells, gameBoard);
-    }
+    };
 }
 
 function generateEmpties() {

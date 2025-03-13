@@ -1,10 +1,11 @@
-import { Coordinate, Vector, directionToVector, Ship, shipToLength, PlacementData } from "../types";
+import { Coordinate, Vector, directionToVector, Ship, shipToLength, PlacementData, ShipPlacement } from "../types";
 import { getGridHTMLMatrix, getGridMatrix } from "../managers/main-menu-dom-manager";
 import resetGridClasses from "../utils/reset-grid-classes";
 import getDirection from "./direction-manager";
 import { checkPlacement } from "../utils/check-placement";
 import { placeShip } from "../utils/place-ship";
 import { updateGrid } from "../utils/update-grid";
+import { pushToShipPlacementArr } from "../state/ship-placement-state-manager";
 
 /**********************************************/
 
@@ -35,7 +36,7 @@ function onDragEnter(e: DragEvent) {
     const cell = (e.target as HTMLElement).closest(".cell") as HTMLDivElement;
     if (!cell) return;
 
-    const currentShip = currentImg?.getAttribute("data-ship") || Ship.Battleship;
+    const currentShip = (currentImg?.getAttribute("data-ship") || Ship.Battleship) as Ship;
     const length: number = shipToLength[currentShip];
     const vector: Vector = directionToVector[getDirection()];
     const cellX = +(cell.getAttribute("data-x") || 0);
@@ -52,7 +53,12 @@ function onDragEnd() {
         const currentShip = (currentImg.getAttribute("data-ship") as Ship) || Ship.Battleship;
         const cells = Array.from(placementData.cells.keys());
         updateGrid(getGridMatrix(), cells, currentShip);
-        placeShip(startingCell, getDirection(), currentShip, currentImg, cells, gameboard, );
+        placeShip(startingCell, getDirection(), currentShip, currentImg, gameboard);
+        pushToShipPlacementArr({
+            ship: currentShip,
+            direction: getDirection(),
+            startingCell: placementData.cells.keys().next().value,
+        });
         disableDrag(currentImg);
     }
 

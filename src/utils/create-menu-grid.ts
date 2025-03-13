@@ -1,5 +1,4 @@
-export default function drawGrid() {
-    const grid = document.querySelector(".game-board");
+export default function drawGrid(board: HTMLDivElement) {
     const gridMatrix: HTMLDivElement[][] = [];
     for (let i = 0; i < 10; i++) {
         gridMatrix.push([]);
@@ -10,7 +9,7 @@ export default function drawGrid() {
             cell.classList.add("cell");
             gridMatrix[i].push(cell);
 
-            grid?.appendChild(cell);
+            board?.appendChild(cell);
         }
     }
 

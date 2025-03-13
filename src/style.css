@@ -88,7 +88,7 @@ label[for],
 /******************/
 
 .container {
-    width: min(80%, 1200px);
+    width: min(80%, 1400px);
     margin: 0 auto;
 }
 
@@ -100,12 +100,16 @@ body {
 
 .main {
     background-color: rgba(0,0,0,0.4);
-    min-height: 80vh;
-    padding: 1em;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    min-height: 80vh;
+    padding: 1em;
+}
+
+.menu-main {
+    max-width: 600px;
 }
 
 .main > * {
@@ -115,7 +119,6 @@ body {
 /* Ship list */
 
 .ship-list {
-    align-self: center;
     display: flex;
     justify-content: space-between;
     overflow-x: auto;
@@ -191,18 +194,15 @@ body {
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
     background-color: green;
-    width: min(80%, 460px);
     aspect-ratio: 1;
-    align-self: center;
+}
+
+.menu-main .game-board {
+    width: min(80%, 460px);
 }
 
 .cell {
     border: 1px solid black;
-}
-
-.cell:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-    cursor: pointer;
 }
 
 .cell.ship__hover {
@@ -250,4 +250,21 @@ body {
 
 .menu-button.active {
     background-color: rgba(0,0,0,0.3);
+}
+
+/*  */
+
+.game-main {
+    background-color: red;
+    justify-content: center;
+}
+
+.board-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.game-main .game-board {
+    background-color: yellow;
+    min-width: 40%;
 }

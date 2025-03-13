@@ -38,6 +38,7 @@ randomBtn?.addEventListener("click", () => {
     const shipToImg = getShipToImg();
     Object.values(shipToImg).forEach(disableDrag);
     const randomBoard = createRandomBoard();
+    setGridMatrix(randomBoard.grid);
     updateShipPlacementArr(randomBoard.shipPlacement);
     fillBoard(randomBoard.shipPlacement, getShipToImg(), gameboard);
 });

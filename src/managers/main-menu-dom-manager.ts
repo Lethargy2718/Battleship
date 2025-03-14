@@ -4,7 +4,7 @@ import createGridMatrix from "../utils/create-grid-matrix";
 import { bindDragListeners, disableDrag } from "./drag-manager";
 import { createRandomBoard } from "../utils/create-random-board";
 import { fillBoard } from "../utils/place-ship";
-import { Ship } from "../types";
+import { CellState, Ship } from "../types";
 import createMainMenu from "../pages/menu-gen";
 import { initGame } from "./game-dom-manager";
 import { updateShipPlacementArr, checkShipPlacementArrValidity, getShipPlacementArr } from "../state/ship-placement-state-manager";
@@ -15,6 +15,7 @@ document.body.appendChild(menuMainEl);
 /*****************************/
 
 const gameboard: HTMLDivElement | null = document.querySelector(".game-board");
+if (!gameboard) throw new Error("Gameboard element not found");
 const gridHTMLMatrix = drawGrid(gameboard);
 let gridMatrix = createGridMatrix();
 
@@ -54,12 +55,13 @@ startBtn?.addEventListener("click", () => {
 
 export const getGridHTMLMatrix = () => gridHTMLMatrix;
 export const getGridMatrix = () => gridMatrix;
-export const setGridMatrix = (newGridMatrix: string[][]) => (gridMatrix = newGridMatrix);
+export const setGridMatrix = (newGridMatrix: CellState[][]) => (gridMatrix = newGridMatrix);
 export function getShipToImg(): Record<Ship, HTMLImageElement> {
     const ships = document.querySelectorAll("[data-ship]");
     return Array.from(ships).reduce(
         (acc, shipImg) => {
             const ship = shipImg.getAttribute("data-ship");
+            if (!ship) throw new Error(`data-ship attribute not found on ship ${ship}`);
             acc[ship] = shipImg;
             return acc;
         },

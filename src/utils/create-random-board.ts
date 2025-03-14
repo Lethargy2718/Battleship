@@ -29,6 +29,7 @@ export function createRandomBoard() {
                     startingCell: startingCell,
                     direction: randomDirection,
                     ship: ship,
+                    cells: cells,
                 });
                 updateGrid(grid, cells, ship);
                 break;

@@ -1,6 +1,6 @@
-import { Coordinate, Vector } from "../types";
+import { CellState, Coordinate, Vector } from "../types";
 
-export function checkPlacement(coord: Coordinate, shipLength: number, vector: Vector, grid: string[][]) {
+export function checkPlacement(coord: Coordinate, shipLength: number, vector: Vector, grid: CellState[][]) {
     const cells = new Map<Coordinate, boolean>();
     const { dx, dy } = vector;
     let isValid: boolean = true;

@@ -1,9 +1,4 @@
-import { Ship } from "../types";
-import battleshipSvg from "../assets/Battleships/battleship.svg";
-import submarineSvg from "../assets/Battleships/submarine.svg";
-import carrierSvg from "../assets/Battleships/battleship.svg";
-import cruiserSvg from "../assets/Battleships/cruiser.svg";
-import destroyerSvg from "../assets/Battleships/destroyer.svg";
+import { Ship, shipToImgSrc } from "../types";
 
 export default function createMainMenu(): HTMLElement {
     // Create the main container
@@ -58,12 +53,12 @@ export default function createMainMenu(): HTMLElement {
     const shipList = document.createElement("ul");
     shipList.classList.add("ship-list");
 
-    const ships: ShipElement[] = [
-        { name: "Battleship", id: "battleshipImg", dataShip: Ship.Battleship, src: battleshipSvg },
-        { name: "Submarine", id: "submarineImg", dataShip: Ship.Submarine, src: submarineSvg },
-        { name: "Carrier", id: "carrierImg", dataShip: Ship.Carrier, src: carrierSvg },
-        { name: "Cruiser", id: "cruiserImg", dataShip: Ship.Cruiser, src: cruiserSvg },
-        { name: "Destroyer", id: "destroyerImg", dataShip: Ship.Destroyer, src: destroyerSvg },
+    const ships: { name: string; id: string; dataShip: Ship }[] = [
+        { name: "Battleship", id: "battleshipImg", dataShip: Ship.Battleship },
+        { name: "Submarine", id: "submarineImg", dataShip: Ship.Submarine },
+        { name: "Carrier", id: "carrierImg", dataShip: Ship.Carrier },
+        { name: "Cruiser", id: "cruiserImg", dataShip: Ship.Cruiser },
+        { name: "Destroyer", id: "destroyerImg", dataShip: Ship.Destroyer },
     ];
 
     ships.forEach((ship) => {
@@ -78,7 +73,7 @@ export default function createMainMenu(): HTMLElement {
         imgContainer.setAttribute("data-container", ship.dataShip);
 
         const img = document.createElement("img");
-        img.src = ship.src;
+        img.src = shipToImgSrc[ship.dataShip as Ship];
         img.classList.add("ship__img");
         img.id = ship.id;
         img.setAttribute("data-ship", ship.dataShip);
@@ -98,11 +93,4 @@ export default function createMainMenu(): HTMLElement {
     main.appendChild(shipList);
 
     return main;
-}
-
-interface ShipElement {
-    name: string;
-    id: string;
-    dataShip: Ship;
-    src;
 }

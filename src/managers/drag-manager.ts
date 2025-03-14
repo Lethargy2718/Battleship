@@ -1,7 +1,7 @@
-import { Coordinate, Vector, directionToVector, Ship, shipToLength, PlacementData, ShipPlacement } from "../types";
+import { Coordinate, Vector, directionToVector, Ship, shipToLength, PlacementData, ShipPlacement, CellState } from "../types";
 import { getGridHTMLMatrix, getGridMatrix } from "../managers/main-menu-dom-manager";
 import resetGridClasses from "../utils/reset-grid-classes";
-import getDirection from "./direction-manager";
+import getDirection from "../state/direction-state-manager";
 import { checkPlacement } from "../utils/check-placement";
 import { placeShip } from "../utils/place-ship";
 import { updateGrid } from "../utils/update-grid";
@@ -46,7 +46,7 @@ function onDragEnter(e: DragEvent) {
 }
 
 function onDragEnd() {
-    if (!currentImg || !placementData) return;
+    if (!currentImg || !placementData || !gameboard) return;
     removeListeners(currentImg);
     if (placementData.isValid) {
         const startingCell = placementData?.cells.keys().next().value;
@@ -58,6 +58,7 @@ function onDragEnd() {
             ship: currentShip,
             direction: getDirection(),
             startingCell: placementData.cells.keys().next().value,
+            cells: cells,
         });
         disableDrag(currentImg);
     }
@@ -69,7 +70,7 @@ function onDragEnd() {
 
 /**********************************************/
 
-function handlePlacement(coord: Coordinate, shipLength: number, vector: Vector, grid: string[][]) {
+function handlePlacement(coord: Coordinate, shipLength: number, vector: Vector, grid: CellState[][]) {
     const results = checkPlacement(coord, shipLength, vector, grid);
     for (const [key, value] of results.cells.entries()) {
         const { x, y } = key;

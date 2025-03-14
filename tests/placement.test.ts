@@ -1,6 +1,7 @@
 import { test, describe, expect } from "@jest/globals";
 import createGrid from "../src/utils/create-grid-matrix";
 import { checkPlacement } from "../src/utils/check-placement";
+import { Ship } from "../src/types";
 
 // horizontal: { dx: 0, dy: 1 }
 // vertical: { dx: 1, dy : 0 }
@@ -79,7 +80,7 @@ describe("HandlePlacement properly handles drop spot validity", () => {
 
     test("Handles horizontal colliding ships", () => {
         const grid = createGrid();
-        grid[3][3] = "occupied";
+        grid[3][3] = Ship.Battleship;
         const coord = { x: 3, y: 2 };
         const shipLength = 3;
         const vector = { dx: 0, dy: 1 }; // horizontal
@@ -98,7 +99,7 @@ describe("HandlePlacement properly handles drop spot validity", () => {
 
     test("Handles vertical colliding ships", () => {
         const grid = createGrid();
-        grid[4][5] = "occupied";
+        grid[4][5] = Ship.Battleship;
         const coord = { x: 2, y: 5 };
         const shipLength = 4;
         const vector = { dx: 1, dy: 0 }; // vertical
@@ -118,7 +119,7 @@ describe("HandlePlacement properly handles drop spot validity", () => {
 
     test("Handles horizontal colliding and out of bounds ships", () => {
         const grid = createGrid();
-        grid[2][8] = "occupied";
+        grid[2][8] = Ship.Battleship;
         const coord = { x: 2, y: 7 };
         const shipLength = 4;
         const vector = { dx: 0, dy: 1 }; // horizontal
@@ -137,7 +138,7 @@ describe("HandlePlacement properly handles drop spot validity", () => {
 
     test("Handles vertical colliding and out of bounds ships", () => {
         const grid = createGrid();
-        grid[8][2] = "occupied";
+        grid[8][2] = Ship.Battleship;
         const coord = { x: 7, y: 2 };
         const shipLength = 4;
         const vector = { dx: 1, dy: 0 }; // vertical

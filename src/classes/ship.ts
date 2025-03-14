@@ -1,6 +1,6 @@
 import { Direction, Ship, shipToLength } from "../types";
 
-class ShipEntity {
+export class ShipEntity {
     public length: number;
     public hits: number;
 

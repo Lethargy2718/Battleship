@@ -1,42 +1,47 @@
-import battleshipSvg from "../assets/Battleships/battleship.svg";
-import submarineSvg from "../assets/Battleships/submarine.svg";
-import carrierSvg from "../assets/Battleships/battleship.svg";
-import cruiserSvg from "../assets/Battleships/cruiser.svg";
-import destroyerSvg from "../assets/Battleships/destroyer.svg";
-
-import { Ship, ShipPlacement } from "../types";
+import { PlayerType, Ship, ShipPlacement, shipToImgSrc } from "../types";
 import createGamePage from "../pages/game-gen";
 import drawGrid from "../utils/create-menu-grid";
 import { fillBoard } from "../utils/place-ship";
+import { GameBoard } from "../classes/gameboard";
+import { createRandomBoard } from "../utils/create-random-board";
+import { getGridMatrix } from "./main-menu-dom-manager";
+import { getShipPlacementArr } from "../state/ship-placement-state-manager";
+import { genImgEl } from "../utils/create-image-element";
+import Game from "../classes/game";
+import { Human, RandomAI } from "../classes/player";
 
 export function initGame(shipPlacementArr: ShipPlacement[]) {
     const gamePageMainEl = createGamePage();
     document.body.innerHTML = "";
     document.body.appendChild(gamePageMainEl);
 
-    const boardOne = gamePageMainEl.querySelector("#boardOne") as HTMLDivElement;
-    const boardTwo = gamePageMainEl.querySelector("#boardTwo") as HTMLDivElement;
+    const boardOneEl = gamePageMainEl.querySelector("#boardOne") as HTMLDivElement;
+    const boardTwoEl = gamePageMainEl.querySelector("#boardTwo") as HTMLDivElement;
 
-    const boardOneGrid = drawGrid(boardOne);
-    const boardTwoGrid = drawGrid(boardTwo);
+    const boardOneDivGrid = drawGrid(boardOneEl);
+    const boardTwoDivGrid = drawGrid(boardTwoEl);
 
-    fillBoard(shipPlacementArr, generateShipToImg(), boardOne);
+    const computerBoard = createRandomBoard();
+
+    const boardOne = new GameBoard(boardOneEl, boardOneDivGrid, getGridMatrix(), getShipPlacementArr());
+    const boardTwo = new GameBoard(boardTwoEl, boardTwoDivGrid, computerBoard.grid, computerBoard.shipPlacement);
+
+    const playerOne = new Human("Me", PlayerType.Human, boardOne);
+    const playerTwo = new RandomAI("random computer guy", PlayerType.RandomAI, boardTwo);
+
+    const shipToImg = createShipToImg();
+    fillBoard(shipPlacementArr, shipToImg, boardOneEl);
+    const game = new Game(playerOne, playerTwo);
+    game.init();
 }
 
-function generateShipToImg() {
+function createShipToImg() {
     const shipToImg = {} as Record<Ship, HTMLImageElement>;
 
-    shipToImg[Ship.Battleship] = genImgEl(battleshipSvg);
-    shipToImg[Ship.Submarine] = genImgEl(submarineSvg);
-    shipToImg[Ship.Carrier] = genImgEl(carrierSvg);
-    shipToImg[Ship.Cruiser] = genImgEl(cruiserSvg);
-    shipToImg[Ship.Destroyer] = genImgEl(destroyerSvg);
+    Object.values(Ship).forEach((ship) => {
+        const imgEl = genImgEl(ship);
+        shipToImg[ship] = imgEl;
+    });
 
     return shipToImg;
-}
-
-function genImgEl(src: string): HTMLImageElement {
-    const img = document.createElement("img");
-    img.src = src;
-    return img;
 }

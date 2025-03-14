@@ -268,3 +268,22 @@ body {
     background-color: yellow;
     min-width: 40%;
 }
+
+/*  */
+
+.miss {
+    background-color: pink;
+}
+
+.hit {
+    background-color: coral;
+}
+
+.sunk {
+    background-color: red;
+}
+
+.cell.hover:hover {
+    cursor: pointer;
+    background-color: olive;
+}

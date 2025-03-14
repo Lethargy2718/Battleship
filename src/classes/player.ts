@@ -8,7 +8,6 @@ export abstract class Player {
 
     constructor(
         public name: string,
-        public type: PlayerType,
         public gameBoard: GameBoard,
     ) {}
 
@@ -24,8 +23,8 @@ export abstract class Player {
 }
 
 export class Human extends Player {
-    constructor(name: string, type: PlayerType, gameBoard: GameBoard) {
-        super(name, type, gameBoard);
+    constructor(name: string, gameBoard: GameBoard) {
+        super(name, gameBoard);
     }
 
     public async play(game: Game): Promise<boolean> {
@@ -52,8 +51,8 @@ export class Human extends Player {
 
 export class RandomAI extends Player {
     private localGrid: HTMLDivElement[][];
-    constructor(name: string, type: PlayerType, gameBoard: GameBoard) {
-        super(name, type, gameBoard);
+    constructor(name: string, gameBoard: GameBoard) {
+        super(name, gameBoard);
     }
 
     public async play(game: Game, thinkTime: number = 0): Promise<boolean> {
@@ -79,24 +78,23 @@ export class RandomAI extends Player {
         const rowNumber = this.localGrid.length;
         const randomRowIndex = Math.floor(Math.random() * rowNumber);
         const randomRow = this.localGrid[randomRowIndex];
-
         const colNumber = randomRow.length;
         const randomColIndex = Math.floor(Math.random() * colNumber);
         const randomCol = randomRow[randomColIndex];
 
         randomRow.splice(randomColIndex, 1);
-        if (randomRow.length === 0) delete this.localGrid[randomRowIndex]; // to not end up with arrays like [ [cell1, cell2], [], ...]
+        if (randomRow.length === 0) this.localGrid.splice(randomRowIndex, 1) // to not end up with arrays like [ [cell1, cell2], [], ...]
         return randomCol;
     }
 
-    private initLocalGrid(otherBoard) {
+    private initLocalGrid(otherBoard: GameBoard) {
         this.localGrid = otherBoard.boardHTMLMatrix.map((innerArr) => [...innerArr]);
     }
 }
 
 export class HuntAndTargetAI extends Player {
-    constructor(name: string, type: PlayerType, gameBoard: GameBoard) {
-        super(name, type, gameBoard);
+    constructor(name: string, gameBoard: GameBoard) {
+        super(name, gameBoard);
     }
 
     public async play(game: Game): Promise<boolean> {
@@ -107,8 +105,8 @@ export class HuntAndTargetAI extends Player {
 }
 
 export class probMapAI extends Player {
-    constructor(name: string, type: PlayerType, gameBoard: GameBoard) {
-        super(name, type, gameBoard);
+    constructor(name: string, gameBoard: GameBoard) {
+        super(name, gameBoard);
     }
 
     public async play(game: Game): Promise<boolean> {

@@ -26,8 +26,8 @@ export function initGame(shipPlacementArr: ShipPlacement[]) {
     const boardOne = new GameBoard(boardOneEl, boardOneDivGrid, getGridMatrix(), getShipPlacementArr());
     const boardTwo = new GameBoard(boardTwoEl, boardTwoDivGrid, computerBoard.grid, computerBoard.shipPlacement);
 
-    const playerOne = new Human("Me", PlayerType.Human, boardOne);
-    const playerTwo = new RandomAI("random computer guy", PlayerType.RandomAI, boardTwo);
+    const playerOne = new Human("Me", boardOne);
+    const playerTwo = new RandomAI("random computer guy", boardTwo);
 
     const shipToImg = createShipToImg();
     fillBoard(shipPlacementArr, shipToImg, boardOneEl);

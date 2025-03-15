@@ -1,7 +1,7 @@
 import { CellState, Ship } from "../types";
-import { PlayerType } from "../types/players";
 import Game from "./game";
 import { GameBoard } from "./gameboard";
+import { ProbMap } from "../utils/prob-map";
 
 export abstract class Player {
     public fleetCount: number = Object.values(Ship).length;
@@ -19,6 +19,18 @@ export abstract class Player {
 
     get isFleetSunk(): boolean {
         return this.fleetCount === 0;
+    }
+}
+
+abstract class AIPlayer extends Player {
+    protected localGrid: HTMLDivElement[][] = [];
+
+    constructor(
+        name: string,
+        gameBoard: GameBoard,
+        protected thinkTime: number,
+    ) {
+        super(name, gameBoard);
     }
 }
 
@@ -49,18 +61,17 @@ export class Human extends Player {
     }
 }
 
-export class RandomAI extends Player {
-    private localGrid: HTMLDivElement[][];
-    constructor(name: string, gameBoard: GameBoard) {
-        super(name, gameBoard);
+export class RandomAI extends AIPlayer {
+    constructor(name: string, gameBoard: GameBoard, thinkTime: number = 0) {
+        super(name, gameBoard, thinkTime);
     }
 
-    public async play(game: Game, thinkTime: number = 0): Promise<boolean> {
-        await new Promise<void>((resolve) => setTimeout(() => resolve(), thinkTime));
+    public async play(game: Game): Promise<boolean> {
+        await new Promise<void>((resolve) => setTimeout(() => resolve(), this.thinkTime));
 
         return new Promise<boolean>((resolve) => {
             const otherBoard = game.otherPlayer.gameBoard;
-            if (!this.localGrid) this.initLocalGrid(otherBoard);
+            if (this.localGrid.length === 0) this.initLocalGrid(otherBoard);
             const randomCell = this.popRandomElement();
             if (!randomCell) throw new Error("No cell found");
 
@@ -74,44 +85,45 @@ export class RandomAI extends Player {
         });
     }
 
-    private popRandomElement() {
+    private popRandomElement(): HTMLDivElement {
         const rowNumber = this.localGrid.length;
         const randomRowIndex = Math.floor(Math.random() * rowNumber);
         const randomRow = this.localGrid[randomRowIndex];
+
         const colNumber = randomRow.length;
         const randomColIndex = Math.floor(Math.random() * colNumber);
         const randomCol = randomRow[randomColIndex];
 
         randomRow.splice(randomColIndex, 1);
-        if (randomRow.length === 0) this.localGrid.splice(randomRowIndex, 1) // to not end up with arrays like [ [cell1, cell2], [], ...]
+        if (randomRow.length === 0) this.localGrid.splice(randomRowIndex, 1); // to not end up with arrays like [ [cell1, cell2], [], ...]
         return randomCol;
     }
 
-    private initLocalGrid(otherBoard: GameBoard) {
+    private initLocalGrid(otherBoard: GameBoard): void {
         this.localGrid = otherBoard.boardHTMLMatrix.map((innerArr) => [...innerArr]);
     }
 }
 
-export class HuntAndTargetAI extends Player {
-    constructor(name: string, gameBoard: GameBoard) {
-        super(name, gameBoard);
+export class ProbMapAI extends AIPlayer {
+    constructor(
+        name: string,
+        gameBoard: GameBoard,
+        thinkTime: number = 0,
+        private probMap = new ProbMap(),
+    ) {
+        super(name, gameBoard, thinkTime);
     }
 
     public async play(game: Game): Promise<boolean> {
+        await new Promise<void>((resolve) => setTimeout(() => resolve(), this.thinkTime));
         return new Promise<boolean>((resolve) => {
-            setTimeout(() => resolve(false), 0);
-        });
-    }
-}
-
-export class probMapAI extends Player {
-    constructor(name: string, gameBoard: GameBoard) {
-        super(name, gameBoard);
-    }
-
-    public async play(game: Game): Promise<boolean> {
-        return new Promise<boolean>((resolve) => {
-            setTimeout(() => resolve(false), 0);
+            const otherBoard = game.otherPlayer.gameBoard;
+            this.probMap.genProbMap(game);
+            const { x, y } = this.probMap.maxCell;
+            const res = otherBoard.shoot(x, y);
+            this.probMap.localGrid[x][y] = res;
+            if (res === "Sunk") game.otherPlayer.sinkShip();
+            resolve(res === "Hit" || res === "Sunk");
         });
     }
 }

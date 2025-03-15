@@ -10,8 +10,8 @@ export default class Game {
         this.players = [playerOne, playerTwo];
     }
 
-    public init() {
-        this.gameLoop();
+    public async init() {
+        return await this.gameLoop();
     }
 
     private async gameLoop() {
@@ -20,7 +20,7 @@ export default class Game {
             if (this.gameOver()) {
                 await new Promise<void>((resolve) => setTimeout(() => resolve(), 1000));
                 this.win(this.currentPlayer);
-                return;
+                return 0;
             }
             if (!anotherTurn) {
                 this.nextPlayer();
@@ -28,7 +28,7 @@ export default class Game {
         }
     }
 
-    private gameOver() {
+    public gameOver() {
         return this.currentPlayer.isFleetSunk || this.otherPlayer.isFleetSunk;
     }
 

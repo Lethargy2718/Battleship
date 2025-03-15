@@ -10,7 +10,7 @@ export class GameBoard {
     constructor(
         private boardEl: HTMLDivElement,
         public boardHTMLMatrix: HTMLDivElement[][],
-        private boardMatrix: CellState[][],
+        public boardMatrix: CellState[][],
         private shipPlacementArr: ShipPlacement[],
     ) {
         this.shipPlacementMap = this.mapShipsToPlacementData(this.shipPlacementArr);

@@ -1,4 +1,4 @@
-import { PlayerType, Ship, ShipPlacement, shipToImgSrc } from "../types";
+import { Ship, ShipPlacement } from "../types";
 import createGamePage from "../pages/game-gen";
 import drawGrid from "../utils/create-menu-grid";
 import { fillBoard } from "../utils/place-ship";
@@ -8,7 +8,7 @@ import { getGridMatrix } from "./main-menu-dom-manager";
 import { getShipPlacementArr } from "../state/ship-placement-state-manager";
 import { genImgEl } from "../utils/create-image-element";
 import Game from "../classes/game";
-import { Human, RandomAI } from "../classes/player";
+import { ProbMapAI } from "../classes/player";
 
 export function initGame(shipPlacementArr: ShipPlacement[]) {
     const gamePageMainEl = createGamePage();
@@ -26,8 +26,8 @@ export function initGame(shipPlacementArr: ShipPlacement[]) {
     const boardOne = new GameBoard(boardOneEl, boardOneDivGrid, getGridMatrix(), getShipPlacementArr());
     const boardTwo = new GameBoard(boardTwoEl, boardTwoDivGrid, computerBoard.grid, computerBoard.shipPlacement);
 
-    const playerOne = new Human("Me", boardOne);
-    const playerTwo = new RandomAI("random computer guy", boardTwo);
+    const playerOne = new ProbMapAI("ProbMap 1", boardOne, 500);
+    const playerTwo = new ProbMapAI("ProbMap 2", boardTwo, 500);
 
     const shipToImg = createShipToImg();
     fillBoard(shipPlacementArr, shipToImg, boardOneEl);

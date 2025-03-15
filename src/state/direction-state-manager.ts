@@ -12,7 +12,7 @@ horizontalBtn?.addEventListener("click", () => {
 });
 
 verticalBtn?.addEventListener("click", () => {
-    currentDirection = "bottom";
+    currentDirection = "down";
     verticalBtn.classList.add("active");
     horizontalBtn?.classList.remove("active");
 });

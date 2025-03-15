@@ -3,18 +3,14 @@ import createGrid from "../src/utils/create-grid-matrix";
 import { checkPlacement } from "../src/utils/check-placement";
 import { Ship } from "../src/types";
 
-// horizontal: { dx: 0, dy: 1 }
-// vertical: { dx: 1, dy : 0 }
-// I am using matrix notation here, not x/y axes.
-
-describe("HandlePlacement properly handles drop spot validity", () => {
+describe("checkPlacement", () => {
     test("Handles horizontal valid ships", () => {
         const grid = createGrid();
         const coord = { x: 2, y: 3 };
         const shipLength = 3;
-        const vector = { dx: 0, dy: 1 }; // horizontal
+        const direction = "right";
 
-        const result = checkPlacement(coord, shipLength, vector, grid);
+        const result = checkPlacement(coord, shipLength, direction, grid);
 
         expect(result.isValid).toBe(true);
         expect(result.cells).toEqual(
@@ -30,9 +26,9 @@ describe("HandlePlacement properly handles drop spot validity", () => {
         const grid = createGrid();
         const coord = { x: 2, y: 3 };
         const shipLength = 3;
-        const vector = { dx: 1, dy: 0 }; // vertical
+        const direction = "down";
 
-        const result = checkPlacement(coord, shipLength, vector, grid);
+        const result = checkPlacement(coord, shipLength, direction, grid);
 
         expect(result.isValid).toBe(true);
         expect(result.cells).toEqual(
@@ -48,9 +44,9 @@ describe("HandlePlacement properly handles drop spot validity", () => {
         const grid = createGrid();
         const coord = { x: 5, y: 8 };
         const shipLength = 3;
-        const vector = { dx: 0, dy: 1 }; // horizontal
+        const direction = "right";
 
-        const result = checkPlacement(coord, shipLength, vector, grid);
+        const result = checkPlacement(coord, shipLength, direction, grid);
 
         expect(result.isValid).toBe(false);
         expect(result.cells).toEqual(
@@ -65,9 +61,9 @@ describe("HandlePlacement properly handles drop spot validity", () => {
         const grid = createGrid();
         const coord = { x: 8, y: 3 };
         const shipLength = 3;
-        const vector = { dx: 1, dy: 0 }; // vertical
+        const direction = "down";
 
-        const result = checkPlacement(coord, shipLength, vector, grid);
+        const result = checkPlacement(coord, shipLength, direction, grid);
 
         expect(result.isValid).toBe(false);
         expect(result.cells).toEqual(
@@ -83,9 +79,9 @@ describe("HandlePlacement properly handles drop spot validity", () => {
         grid[3][3] = Ship.Battleship;
         const coord = { x: 3, y: 2 };
         const shipLength = 3;
-        const vector = { dx: 0, dy: 1 }; // horizontal
+        const direction = "right";
 
-        const result = checkPlacement(coord, shipLength, vector, grid);
+        const result = checkPlacement(coord, shipLength, direction, grid);
 
         expect(result.isValid).toBe(false);
         expect(result.cells).toEqual(
@@ -102,9 +98,9 @@ describe("HandlePlacement properly handles drop spot validity", () => {
         grid[4][5] = Ship.Battleship;
         const coord = { x: 2, y: 5 };
         const shipLength = 4;
-        const vector = { dx: 1, dy: 0 }; // vertical
+        const direction = "down";
 
-        const result = checkPlacement(coord, shipLength, vector, grid);
+        const result = checkPlacement(coord, shipLength, direction, grid);
 
         expect(result.isValid).toBe(false);
         expect(result.cells).toEqual(
@@ -122,9 +118,9 @@ describe("HandlePlacement properly handles drop spot validity", () => {
         grid[2][8] = Ship.Battleship;
         const coord = { x: 2, y: 7 };
         const shipLength = 4;
-        const vector = { dx: 0, dy: 1 }; // horizontal
+        const direction = "right";
 
-        const result = checkPlacement(coord, shipLength, vector, grid);
+        const result = checkPlacement(coord, shipLength, direction, grid);
 
         expect(result.isValid).toBe(false);
         expect(result.cells).toEqual(
@@ -141,9 +137,9 @@ describe("HandlePlacement properly handles drop spot validity", () => {
         grid[8][2] = Ship.Battleship;
         const coord = { x: 7, y: 2 };
         const shipLength = 4;
-        const vector = { dx: 1, dy: 0 }; // vertical
+        const direction = "down";
 
-        const result = checkPlacement(coord, shipLength, vector, grid);
+        const result = checkPlacement(coord, shipLength, direction, grid);
 
         expect(result.isValid).toBe(false);
         expect(result.cells).toEqual(
@@ -159,9 +155,9 @@ describe("HandlePlacement properly handles drop spot validity", () => {
         const grid = createGrid();
         const coord = { x: 0, y: 0 };
         const shipLength = 3;
-        const vector = { dx: 1, dy: 0 }; // vertical
+        const direction = "down";
 
-        const result = checkPlacement(coord, shipLength, vector, grid);
+        const result = checkPlacement(coord, shipLength, direction, grid);
 
         expect(result.isValid).toBe(true);
         expect(result.cells).toEqual(
@@ -177,9 +173,9 @@ describe("HandlePlacement properly handles drop spot validity", () => {
         const grid = createGrid();
         const coord = { x: 9, y: 9 };
         const shipLength = 3;
-        const vector = { dx: 1, dy: 0 }; // vertical
+        const direction = "right";
 
-        const result = checkPlacement(coord, shipLength, vector, grid);
+        const result = checkPlacement(coord, shipLength, direction, grid);
 
         expect(result.isValid).toBe(false);
         expect(result.cells).toEqual(new Map([[{ x: 9, y: 9 }, true]]));

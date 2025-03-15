@@ -1,4 +1,4 @@
-import { Coordinate, Vector, directionToVector, Ship, shipToLength, PlacementData, ShipPlacement, CellState } from "../types";
+import { Coordinate, Ship, shipToLength, PlacementData, CellState, Direction } from "../types";
 import { getGridHTMLMatrix, getGridMatrix } from "../managers/main-menu-dom-manager";
 import resetGridClasses from "../utils/reset-grid-classes";
 import getDirection from "../state/direction-state-manager";
@@ -38,11 +38,10 @@ function onDragEnter(e: DragEvent) {
 
     const currentShip = (currentImg?.getAttribute("data-ship") || Ship.Battleship) as Ship;
     const length: number = shipToLength[currentShip];
-    const vector: Vector = directionToVector[getDirection()];
     const cellX = +(cell.getAttribute("data-x") || 0);
     const cellY = +(cell.getAttribute("data-y") || 0);
     resetGridClasses(gridHTMLMatrix);
-    placementData = handlePlacement({ x: cellX, y: cellY }, length, vector, getGridMatrix());
+    placementData = handlePlacement({ x: cellX, y: cellY }, length, getDirection(), getGridMatrix());
 }
 
 function onDragEnd() {
@@ -70,8 +69,8 @@ function onDragEnd() {
 
 /**********************************************/
 
-function handlePlacement(coord: Coordinate, shipLength: number, vector: Vector, grid: CellState[][]) {
-    const results = checkPlacement(coord, shipLength, vector, grid);
+function handlePlacement(coord: Coordinate, shipLength: number, direction: Direction, grid: CellState[][]) {
+    const results = checkPlacement(coord, shipLength, direction, grid);
     for (const [key, value] of results.cells.entries()) {
         const { x, y } = key;
         if (value && results.isValid) gridHTMLMatrix[x][y].classList.add("ship__hover");

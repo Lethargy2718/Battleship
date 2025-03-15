@@ -1,8 +1,8 @@
-import { CellState, Coordinate, Vector } from "../types";
+import { CellState, Coordinate, directionToVector, Direction } from "../types";
 
-export function checkPlacement(coord: Coordinate, shipLength: number, vector: Vector, grid: CellState[][]) {
+export function checkPlacement(coord: Coordinate, shipLength: number, direction: Direction, grid: CellState[][]) {
     const cells = new Map<Coordinate, boolean>();
-    const { dx, dy } = vector;
+    const { dx, dy } = directionToVector[direction];
     let isValid: boolean = true;
 
     for (let i = 0; i < shipLength; i++) {

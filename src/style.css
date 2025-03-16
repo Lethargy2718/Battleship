@@ -88,8 +88,13 @@ label[for],
 /******************/
 
 .container {
-    width: min(80%, 1400px);
+    width: 80%;
+    background-color: red;
     margin: 0 auto;
+}
+
+.row {
+    display: flex;
 }
 
 body {
@@ -103,17 +108,12 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
     min-height: 80vh;
-    padding: 1em;
+    min-width: 80%;
 }
 
 .menu-main {
-    max-width: 600px;
-}
-
-.main > * {
-    width: 100%;
+    align-items: center;
 }
 
 /* Ship list */
@@ -123,7 +123,7 @@ body {
     justify-content: space-between;
     overflow-x: auto;
     border: 1px solid black;
-    width: 100%;
+    width: 80%;
     max-width: 900px;
     min-height: 6.5rem;
 }
@@ -150,23 +150,23 @@ body {
     cursor: grabbing;
 }
 
-#battleshipImg {
+[data-ship=battleship] {
     aspect-ratio: 299 / 95;
 }
 
-#carrierImg {
+[data-ship=carrier] {
     aspect-ratio: 302 / 98;
 }
 
-#cruiserImg {
+[data-ship=cruiser] {
     aspect-ratio: 153 / 69;
 }
 
-#destroyerImg {
+[data-ship=destroyer] {
     aspect-ratio: 112 / 60;
 }
 
-#submarineImg {
+[data-ship=submarine] {
     aspect-ratio: 302 / 98;
     transform: translateY(15.5%); /* the svg is a little wonky */
 }
@@ -237,6 +237,7 @@ body {
     display: flex;
     gap: 2em;
     justify-content: center;
+    width: 80%;
 }
 
 .menu-button {
@@ -286,4 +287,53 @@ body {
 .cell.hover:hover {
     cursor: pointer;
     background-color: olive;
+}
+
+.menu-main {
+    justify-content: space-around;
+    gap: 1em;
+}
+
+.player-containers {
+    width: 100%;
+    justify-content: space-around;
+}
+
+.player-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 1.5em;
+    align-items: center;
+    background-color: olive;
+    position: relative;
+    padding: 2em 1em;
+    border-radius: 1em;
+}
+
+.player-container.dark-overlay .game-board::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: black;
+}
+
+.player-container__upper-row {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 0.5fr;
+    width: 100%;
+}
+
+.dropdown-container {
+    grid-column: 2 / 3;
+    margin: 0 auto;
+    gap: 1em;
+}
+
+.visibility-toggle {
+    place-self: end;
+    padding-right: 1em;
 }

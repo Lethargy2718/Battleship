@@ -9,11 +9,12 @@ import createMainMenu from "../pages/menu-gen";
 import { initGame } from "./game-dom-manager";
 import { updateShipPlacementArr, checkShipPlacementArrValidity, getShipPlacementArr } from "../state/ship-placement-state-manager";
 
-const menuMainEl = createMainMenu();
-document.body.appendChild(menuMainEl);
+// const menuMainEl = createMainMenu();
+// document.body.appendChild(menuMainEl);
 
 /*****************************/
 
+const visibilityToggleBtns = document.querySelectorAll(".visibility-toggle");
 const gameboard: HTMLDivElement | null = document.querySelector(".game-board");
 if (!gameboard) throw new Error("Gameboard element not found");
 const gridHTMLMatrix = drawGrid(gameboard);
@@ -51,6 +52,17 @@ startBtn?.addEventListener("click", () => {
     }
 });
 
+visibilityToggleBtns.forEach(btn => {
+    btn.addEventListener("click", (e: MouseEvent) => {
+        const section = btn.closest(".player-container");
+        const i = btn.querySelector("i");
+        console.log(section, i);
+        if (!section || !i) return;
+        section.classList.toggle('dark-overlay');
+        i.classList.toggle('fa-eye');
+        i.classList.toggle('fa-eye-slash');
+    })
+})
 /*****************************/
 
 export const getGridHTMLMatrix = () => gridHTMLMatrix;

@@ -52,17 +52,17 @@ startBtn?.addEventListener("click", () => {
     }
 });
 
-visibilityToggleBtns.forEach(btn => {
+visibilityToggleBtns.forEach((btn) => {
     btn.addEventListener("click", (e: MouseEvent) => {
         const section = btn.closest(".player-container");
         const i = btn.querySelector("i");
         console.log(section, i);
         if (!section || !i) return;
-        section.classList.toggle('dark-overlay');
-        i.classList.toggle('fa-eye');
-        i.classList.toggle('fa-eye-slash');
-    })
-})
+        section.classList.toggle("dark-overlay");
+        i.classList.toggle("fa-eye");
+        i.classList.toggle("fa-eye-slash");
+    });
+});
 /*****************************/
 
 export const getGridHTMLMatrix = () => gridHTMLMatrix;

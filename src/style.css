@@ -1,3 +1,33 @@
+:root {
+    --color-primary: #1e3a8a;     
+    --color-secondary: #f59e0b;   
+    --color-accent: #10b981;      
+    --color-background: #f3f4f6;  
+    --color-surface: #ffffff;     
+    --color-border: #d1d5db;      
+
+    --color-text: #111827;        
+    --color-text-light: #6b7280;  
+
+    --color-success: #22c55e;     
+    --color-error: #ef4444;       
+    --color-warning: #facc15;     
+    --color-info: #3b82f6;        
+
+    --color-ship-hover: lightgreen;
+    --color-ship-invalid: red;
+    --color-hit: coral;
+    --color-miss: pink;
+    --color-sunk: red;
+
+    --color-overlay: rgba(0,0,0,0.4);
+    --color-dark-overlay: rgba(0,0,0,0.8);
+
+    --scrollbar-track: var(--color-dark-overlay);
+    --scrollbar-thumb: rgba(255, 255, 255, 0.3);
+    --scrollbar-thumb-hover: rgba(255, 255, 255, 0.5);
+}
+
 /********RESET**********/
 
 *,
@@ -11,6 +41,7 @@
 body {
     -webkit-font-smoothing: antialiased;
     line-height: 1.5;
+    background-color: var(--color-background);
 }
 
 img,
@@ -42,6 +73,7 @@ h4,
 h5,
 h6 {
     overflow-wrap: break-word;
+    color: var(--color-text);
 }
 
 p {
@@ -89,7 +121,7 @@ label[for],
 
 .container {
     width: 80%;
-    background-color: red;
+    background-color: var(--color-error);
     margin: 0 auto;
 }
 
@@ -104,7 +136,7 @@ body {
 }
 
 .main {
-    background-color: rgba(0,0,0,0.4);
+    background-color: var(--color-overlay);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -122,7 +154,7 @@ body {
     display: flex;
     justify-content: space-between;
     overflow-x: auto;
-    border: 1px solid black;
+    border: 1px solid var(--color-border);
     width: 80%;
     max-width: 900px;
     min-height: 6.5rem;
@@ -175,15 +207,15 @@ body {
     height: 5px;
 }
 .ship-list::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.8);
+    background: var(--scrollbar-track);
 }
 
 .ship-list::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--scrollbar-thumb);
 }
 
 .ship-list::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--scrollbar-thumb-hover);
 }
 
 /* Board */
@@ -193,7 +225,7 @@ body {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
-    background-color: green;
+    background-color: var(--color-success);
     aspect-ratio: 1;
 }
 
@@ -202,15 +234,15 @@ body {
 }
 
 .cell {
-    border: 1px solid black;
+    border: 1px solid var(--color-border);
 }
 
 .cell.ship__hover {
-    background-color: lightgreen;
+    background-color: var(--color-ship-hover);
 }
 
 .cell.invalid {
-    background-color: red;
+    background-color: var(--color-ship-invalid);
 }
 
 .board__ship-container {
@@ -245,18 +277,18 @@ body {
     max-width: 120px;
     text-align: center;
     padding: 0.1em 0;
-    background-color: white;
+    background-color: var(--color-surface);
     border-radius: 10px;
 }
 
 .menu-button.active {
-    background-color: rgba(0,0,0,0.3);
+    background-color: var(--color-overlay);
 }
 
 /*  */
 
 .game-main {
-    background-color: red;
+    background-color: var(--color-error);
     justify-content: center;
 }
 
@@ -266,27 +298,27 @@ body {
 }
 
 .game-main .game-board {
-    background-color: yellow;
+    background-color: var(--color-warning);
     min-width: 40%;
 }
 
 /*  */
 
 .miss {
-    background-color: pink;
+    background-color: var(--color-miss);
 }
 
 .hit {
-    background-color: coral;
+    background-color: var(--color-hit);
 }
 
 .sunk {
-    background-color: red;
+    background-color: var(--color-sunk);
 }
 
 .cell.hover:hover {
     cursor: pointer;
-    background-color: olive;
+    background-color: var(--color-accent);
 }
 
 .menu-main {
@@ -305,7 +337,7 @@ body {
     justify-content: space-evenly;
     gap: 1.5em;
     align-items: center;
-    background-color: olive;
+    background-color: var(--color-accent);
     position: relative;
     padding: 2em 1em;
     border-radius: 1em;
@@ -318,7 +350,7 @@ body {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: black;
+    background-color: var(--color-dark-overlay);
 }
 
 .player-container__upper-row {

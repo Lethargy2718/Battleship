@@ -1,4 +1,4 @@
-import { CellState, Coordinate, Direction, PlacementData, ShipPlacement } from "../types";
+import { CellState, Coordinate, Direction, PlacementData } from "../types";
 import { Ship, shipToLength } from "../types";
 import { checkPlacement } from "../utils/check-placement";
 import { placeShip } from "../utils/place-ship";

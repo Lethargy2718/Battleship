@@ -1,6 +1,5 @@
 import { Menu } from "../components/Menu";
 import { PlayerSection } from "../components/PlayerSection";
-import { GameInitData } from "../types";
 import { initGame } from "./game-dom-manager";
 
 // const menuMainEl = createMainMenu();
@@ -31,5 +30,5 @@ visibilityToggleBtns.forEach((btn) => {
 startBtn?.addEventListener("click", () => {
     const gameData = menu.createGame();
     if (!gameData) return;
-    initGame(gameData as GameInitData);
+    initGame(gameData);
 });

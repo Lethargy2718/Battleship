@@ -1,2 +1,2 @@
 import "./style.css";
-import "./managers/drag-manager";
+import "./managers/main-menu-dom-manager";

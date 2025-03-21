@@ -62,7 +62,7 @@ export class Human extends Player {
 }
 
 export class RandomAI extends AIPlayer {
-    constructor(name: string, gameBoard: GameBoard, thinkTime: number = 0) {
+    constructor(name: string, gameBoard: GameBoard, thinkTime: number = 1000) {
         super(name, gameBoard, thinkTime);
     }
 
@@ -108,7 +108,7 @@ export class ProbMapAI extends AIPlayer {
     constructor(
         name: string,
         gameBoard: GameBoard,
-        thinkTime: number = 0,
+        thinkTime: number = 1000,
         private probMap = new ProbMap(),
     ) {
         super(name, gameBoard, thinkTime);

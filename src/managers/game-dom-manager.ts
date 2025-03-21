@@ -1,47 +1,30 @@
-import { Ship, ShipPlacement } from "../types";
-import createGamePage from "../pages/game-gen";
-import drawGrid from "../utils/create-menu-grid";
-import { fillBoard } from "../utils/place-ship";
-import { GameBoard } from "../entities/GameBoard";
-import { createRandomBoard } from "../utils/create-random-board";
-import { getGridMatrix } from "./main-menu-dom-manager";
-import { getShipPlacementArr } from "../state/ship-placement-state-manager";
-import { genImgEl } from "../utils/create-image-element";
 import Game from "../entities/Game";
-import { ProbMapAI } from "../entities/Player";
+import { GameBoard } from "../entities/GameBoard";
+import createGamePage from "../pages/game-gen";
+import { PlayerSections, playerTypeToPlayer } from "../types";
+import drawGrid from "../utils/create-menu-grid";
+import { createShipToImg } from "../utils/create-ship-to-img";
+import { fillBoard } from "../utils/place-ship";
 
-export function initGame(shipPlacementArr: ShipPlacement[]) {
-    const gamePageMainEl = createGamePage();
-    document.body.innerHTML = "";
-    document.body.appendChild(gamePageMainEl);
+export function initGame(playerSections: PlayerSections) {
+    document.body.replaceChildren();
+    const gamePage = createGamePage();
+    document.body.appendChild(gamePage);
 
-    const boardOneEl = gamePageMainEl.querySelector("#boardOne") as HTMLDivElement;
-    const boardTwoEl = gamePageMainEl.querySelector("#boardTwo") as HTMLDivElement;
+    const { playerOneSection, playerTwoSection } = playerSections;
 
-    const boardOneDivGrid = drawGrid(boardOneEl);
-    const boardTwoDivGrid = drawGrid(boardTwoEl);
+    const boardOneEl: HTMLDivElement = document.querySelector("#boardOne");
+    const boardTwoEl: HTMLDivElement = document.querySelector("#boardTwo");
 
-    const computerBoard = createRandomBoard();
+    const gameBoardOne = new GameBoard(boardOneEl, drawGrid(boardOneEl), playerOneSection.playerState.gridMatrix, playerOneSection.playerState.shipPlacementArr);
+    const gameBoardTwo = new GameBoard(boardTwoEl, drawGrid(boardTwoEl), playerTwoSection.playerState.gridMatrix, playerTwoSection.playerState.shipPlacementArr);
 
-    const boardOne = new GameBoard(boardOneEl, boardOneDivGrid, getGridMatrix(), getShipPlacementArr());
-    const boardTwo = new GameBoard(boardTwoEl, boardTwoDivGrid, computerBoard.grid, computerBoard.shipPlacement);
+    const playerOne = new playerTypeToPlayer[playerOneSection.playerType]("Player One", gameBoardOne);
+    const playerTwo = new playerTypeToPlayer[playerTwoSection.playerType]("Player Two", gameBoardTwo);
 
-    const playerOne = new ProbMapAI("ProbMap 1", boardOne, 500);
-    const playerTwo = new ProbMapAI("ProbMap 2", boardTwo, 500);
+    fillBoard(playerOneSection.playerState.shipPlacementArr, createShipToImg(), boardOneEl);
+    fillBoard(playerTwoSection.playerState.shipPlacementArr, createShipToImg(), boardTwoEl);
 
-    const shipToImg = createShipToImg();
-    fillBoard(shipPlacementArr, shipToImg, boardOneEl);
     const game = new Game(playerOne, playerTwo);
     game.init();
-}
-
-function createShipToImg() {
-    const shipToImg = {} as Record<Ship, HTMLImageElement>;
-
-    Object.values(Ship).forEach((ship) => {
-        const imgEl = genImgEl(ship);
-        shipToImg[ship] = imgEl;
-    });
-
-    return shipToImg;
 }

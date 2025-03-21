@@ -7,7 +7,7 @@
     <title>Battleship</title>
 </head>
 <body>
-    <main class="main container menu-main">
+    <main class="main container menu__main">
         <h1>BATTLESHIP</h1>
         <section class="player-containers row">
             <section class="player-one-container player-container">
@@ -26,40 +26,40 @@
                 <div class="game-board" id="gameBoard1"></div>
             
                 <div class="button-list">
-                    <button class="menu-button active" id="player1HorizontalBtn">Horizontal</button>
-                    <button class="menu-button" id="player1VerticalBtn">Vertical</button>
-                    <button class="menu-button" id="player1ResetBtn">Reset</button>
-                    <button class="menu-button" id="player1RandomBtn">Random</button>
+                    <button class="menu-button horizontal-button active" id="player1HorizontalBtn">Horizontal</button>
+                    <button class="menu-button vertical-button" id="player1VerticalBtn">Vertical</button>
+                    <button class="menu-button reset-button" id="player1ResetBtn">Reset</button>
+                    <button class="menu-button random-button" id="player1RandomBtn">Random</button>
                 </div>
             
                 <ul class="ship-list">
                     <li class="ship-list__item">
                         <h4>Battleship</h4>
-                        <div class="img-container" data-container="Battleship1">
+                        <div class="img-container" data-container="battleship">
                             <img src="../src/assets/Battleships/battleship.svg" class="ship__img" id="player1BattleshipImg" data-ship="battleship" draggable="true" alt="Battleship">
                         </div>
                     </li>
                     <li class="ship-list__item">
                         <h4>Submarine</h4>
-                        <div class="img-container" data-container="Submarine1">
+                        <div class="img-container" data-container="submarine">
                             <img src="../src/assets/Battleships/submarine.svg" class="ship__img" id="player1SubmarineImg" data-ship="submarine" draggable="true" alt="Submarine">
                         </div>
                     </li>
                     <li class="ship-list__item">
                         <h4>Carrier</h4>
-                        <div class="img-container" data-container="Carrier1">
+                        <div class="img-container" data-container="carrier">
                             <img src="../src/assets/Battleships/carrier.svg" class="ship__img" id="player1CarrierImg" data-ship="carrier" draggable="true" alt="Carrier">
                         </div>
                     </li>
                     <li class="ship-list__item">
                         <h4>Cruiser</h4>
-                        <div class="img-container" data-container="Cruiser1">
+                        <div class="img-container" data-container="cruiser">
                             <img src="../src/assets/Battleships/cruiser.svg" class="ship__img" id="player1CruiserImg" data-ship="cruiser" draggable="true" alt="Cruiser">
                         </div>
                     </li>
                     <li class="ship-list__item">
                         <h4>Destroyer</h4>
-                        <div class="img-container" data-container="Destroyer1">
+                        <div class="img-container" data-container="destroyer">
                             <img src="../src/assets/Battleships/destroyer.svg" class="ship__img" id="player1DestroyerImg" data-ship="destroyer" draggable="true" alt="Destroyer">
                         </div>
                     </li>
@@ -82,47 +82,47 @@
                 <div class="game-board" id="gameBoard2"></div>
             
                 <div class="button-list">
-                    <button class="menu-button active" id="player2HorizontalBtn">Horizontal</button>
-                    <button class="menu-button" id="player2VerticalBtn">Vertical</button>
-                    <button class="menu-button" id="player2ResetBtn">Reset</button>
-                    <button class="menu-button" id="player2RandomBtn">Random</button>
+                    <button class="menu-button horizontal-button active" id="player2HorizontalBtn">Horizontal</button>
+                    <button class="menu-button vertical-button" id="player2VerticalBtn">Vertical</button>
+                    <button class="menu-button reset-button" id="player2ResetBtn">Reset</button>
+                    <button class="menu-button random-button" id="player2RandomBtn">Random</button>
                 </div>
             
                 <ul class="ship-list">
                     <li class="ship-list__item">
                         <h4>Battleship</h4>
-                        <div class="img-container" data-container="Battleship2">
+                        <div class="img-container" data-container="battleship">
                             <img src="../src/assets/Battleships/battleship.svg" class="ship__img" id="player2BattleshipImg" data-ship="battleship" draggable="true" alt="Battleship">
                         </div>
                     </li>
                     <li class="ship-list__item">
                         <h4>Submarine</h4>
-                        <div class="img-container" data-container="Submarine2">
+                        <div class="img-container" data-container="submarine">
                             <img src="../src/assets/Battleships/submarine.svg" class="ship__img" id="player2SubmarineImg" data-ship="submarine" draggable="true" alt="Submarine">
                         </div>
                     </li>
                     <li class="ship-list__item">
                         <h4>Carrier</h4>
-                        <div class="img-container" data-container="Carrier2">
+                        <div class="img-container" data-container="carrier">
                             <img src="../src/assets/Battleships/carrier.svg" class="ship__img" id="player2CarrierImg" data-ship="carrier" draggable="true" alt="Carrier">
                         </div>
                     </li>
                     <li class="ship-list__item">
                         <h4>Cruiser</h4>
-                        <div class="img-container" data-container="Cruiser2">
+                        <div class="img-container" data-container="cruiser">
                             <img src="../src/assets/Battleships/cruiser.svg" class="ship__img" id="player2CruiserImg" data-ship="cruiser" draggable="true" alt="Cruiser">
                         </div>
                     </li>
                     <li class="ship-list__item">
                         <h4>Destroyer</h4>
-                        <div class="img-container" data-container="Destroyer2">
+                        <div class="img-container" data-container="destroyer">
                             <img src="../src/assets/Battleships/destroyer.svg" class="ship__img" id="player2DestroyerImg" data-ship="destroyer" draggable="true" alt="Destroyer">
                         </div>
                     </li>
                 </ul>
             </section>
         </section>
-        <button id="startGameBtn">Start</button>
+        <button id="startBtn">Start</button>
     </main>
 </body>
 </html>

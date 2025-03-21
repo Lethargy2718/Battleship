@@ -1,4 +1,4 @@
-export default function createGamePage() {
+export default function createGamePage(): HTMLElement {
     const main = document.createElement("main");
     main.classList.add("main", "container", "game-main");
 

@@ -4,3 +4,4 @@ export * from "./placement";
 export * from "./cell";
 export * from "./players";
 export * from "./ship-img-map";
+export * from "./game-init";

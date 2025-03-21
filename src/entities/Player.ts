@@ -1,7 +1,7 @@
 import { CellState, Ship } from "../types";
-import Game from "./game";
-import { GameBoard } from "./gameboard";
-import { ProbMap } from "../utils/prob-map";
+import Game from "./Game";
+import { GameBoard } from "./GameBoard";
+import { ProbMap } from "./ai/ProbMap";
 
 export abstract class Player {
     public fleetCount: number = Object.values(Ship).length;

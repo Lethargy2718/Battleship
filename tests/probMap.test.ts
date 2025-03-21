@@ -1,5 +1,5 @@
 import { test, describe, expect, beforeAll, jest, it } from "@jest/globals";
-import { ProbMap } from "../src/utils/prob-map";
+import { ProbMap } from "../src/entities/ai/ProbMap";
 import createGridMatrix from "../src/utils/create-grid-matrix";
 import { Coordinate } from "../src/types";
 

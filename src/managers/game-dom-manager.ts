@@ -2,13 +2,13 @@ import { Ship, ShipPlacement } from "../types";
 import createGamePage from "../pages/game-gen";
 import drawGrid from "../utils/create-menu-grid";
 import { fillBoard } from "../utils/place-ship";
-import { GameBoard } from "../classes/gameboard";
+import { GameBoard } from "../entities/GameBoard";
 import { createRandomBoard } from "../utils/create-random-board";
 import { getGridMatrix } from "./main-menu-dom-manager";
 import { getShipPlacementArr } from "../state/ship-placement-state-manager";
 import { genImgEl } from "../utils/create-image-element";
-import Game from "../classes/game";
-import { ProbMapAI } from "../classes/player";
+import Game from "../entities/Game";
+import { ProbMapAI } from "../entities/Player";
 
 export function initGame(shipPlacementArr: ShipPlacement[]) {
     const gamePageMainEl = createGamePage();

@@ -1,7 +1,7 @@
 import { CellState, Ship, ShipPlacement } from "../types";
 import { genImgEl } from "../utils/create-image-element";
 import { placeShip } from "../utils/place-ship";
-import { ShipEntity } from "./ship";
+import { ShipEntity } from "./Ship";
 
 export class GameBoard {
     public shipPlacementMap: Record<Ship, Omit<ShipPlacement, "ship">>;

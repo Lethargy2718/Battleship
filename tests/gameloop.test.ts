@@ -1,9 +1,9 @@
 import { test, describe, expect, beforeAll, jest } from "@jest/globals";
 import drawGrid from "../src/utils/create-menu-grid";
 import { createRandomBoard } from "../src/utils/create-random-board";
-import { GameBoard } from "../src/classes/gameboard";
-import { ProbMapAI, RandomAI } from "../src/classes/player";
-import Game from "../src/classes/game";
+import { GameBoard } from "../src/entities/GameBoard";
+import { ProbMapAI, RandomAI } from "../src/entities/Player";
+import Game from "../src/entities/Game";
 
 function createRandomGameBoard(): GameBoard {
     const boardOneEl = document.createElement("div");

@@ -1,6 +1,6 @@
-import Game from "../classes/game";
-import { CellState, Coordinate, Direction, directionToVector, shipToLength } from "../types";
-import createGridMatrix from "./create-grid-matrix";
+import Game from "../Game";
+import { CellState, Coordinate, Direction, directionToVector, shipToLength } from "../../types";
+import createGridMatrix from "../../utils/create-grid-matrix";
 
 export class ProbMap {
     public probMap: number[][] = createGridMatrix<number>(10, 0);

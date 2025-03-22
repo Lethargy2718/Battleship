@@ -1,128 +1,129 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Battleship</title>
-</head>
-<body>
-    <main class="main container menu__main">
-        <h1>BATTLESHIP</h1>
-        <section class="player-containers row">
-            <section class="player-one-container player-container">
-                <div class="player-container__upper-row">
-                    <div class="dropdown-container row">
-                        <label for="player1Dropdown">Player:</label>
-                        <select id="player1Dropdown" name="player1Dropdown">
-                            <option value="Human">Human</option>
-                            <option value="RandomAI">Random AI</option>
-                            <option value="ProbMapAI">Probability Map AI</option>
-                        </select>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        <title>Battleship</title>
+    </head>
+    <body>
+        <main class="main container menu__main">
+            <div class="neon-snake"></div>
+            <h1 id="title">BATTLESHIP</h1>
+            <section class="player-containers row">
+                <section class="player-one-container player-container">
+                    <div class="player-container__upper-row">
+                        <div class="dropdown-container row">
+                            <label for="player1Dropdown">Player One:</label>
+                            <select id="player1Dropdown" name="player1Dropdown">
+                                <option value="Human">Human</option>
+                                <option value="RandomAI">Random AI</option>
+                                <option value="ProbMapAI">Probability Map AI</option>
+                            </select>
+                        </div>
+                        <button class="visibility-toggle can-click" id="visibilityToggle1"><i class="fa-solid fa-eye"></i></button>
                     </div>
-                    <button class="visibility-toggle" id="visibilityToggle1"><i class="fa-solid fa-eye"></i></button>
-                </div>
-    
-                <div class="game-board" id="gameBoard1"></div>
-            
-                <div class="button-list">
-                    <button class="menu-button horizontal-button active" id="player1HorizontalBtn">Horizontal</button>
-                    <button class="menu-button vertical-button" id="player1VerticalBtn">Vertical</button>
-                    <button class="menu-button reset-button" id="player1ResetBtn">Reset</button>
-                    <button class="menu-button random-button" id="player1RandomBtn">Random</button>
-                </div>
-            
-                <ul class="ship-list">
-                    <li class="ship-list__item">
-                        <h4>Battleship</h4>
-                        <div class="img-container" data-container="battleship">
-                            <img src="../src/assets/Battleships/battleship.svg" class="ship__img" id="player1BattleshipImg" data-ship="battleship" draggable="true" alt="Battleship">
-                        </div>
-                    </li>
-                    <li class="ship-list__item">
-                        <h4>Submarine</h4>
-                        <div class="img-container" data-container="submarine">
-                            <img src="../src/assets/Battleships/submarine.svg" class="ship__img" id="player1SubmarineImg" data-ship="submarine" draggable="true" alt="Submarine">
-                        </div>
-                    </li>
-                    <li class="ship-list__item">
-                        <h4>Carrier</h4>
-                        <div class="img-container" data-container="carrier">
-                            <img src="../src/assets/Battleships/carrier.svg" class="ship__img" id="player1CarrierImg" data-ship="carrier" draggable="true" alt="Carrier">
-                        </div>
-                    </li>
-                    <li class="ship-list__item">
-                        <h4>Cruiser</h4>
-                        <div class="img-container" data-container="cruiser">
-                            <img src="../src/assets/Battleships/cruiser.svg" class="ship__img" id="player1CruiserImg" data-ship="cruiser" draggable="true" alt="Cruiser">
-                        </div>
-                    </li>
-                    <li class="ship-list__item">
-                        <h4>Destroyer</h4>
-                        <div class="img-container" data-container="destroyer">
-                            <img src="../src/assets/Battleships/destroyer.svg" class="ship__img" id="player1DestroyerImg" data-ship="destroyer" draggable="true" alt="Destroyer">
-                        </div>
-                    </li>
-                </ul>
-            </section>
 
-            <section class="player-two-container player-container">
-                <div class="player-container__upper-row">
-                    <div class="dropdown-container row">
-                        <label for="player2Dropdown">Player:</label>
-                        <select id="player2Dropdown" name="player2Dropdown">
-                            <option value="Human">Human</option>
-                            <option value="RandomAI">Random AI</option>
-                            <option value="ProbMapAI">Probability Map AI</option>
-                        </select>
+                    <div class="game-board" id="gameBoard1"></div>
+
+                    <div class="button-list">
+                        <button class="menu-button horizontal-button active" id="player1HorizontalBtn">Horizontal</button>
+                        <button class="menu-button vertical-button" id="player1VerticalBtn">Vertical</button>
+                        <button class="menu-button reset-button" id="player1ResetBtn">Reset</button>
+                        <button class="menu-button random-button" id="player1RandomBtn">Random</button>
                     </div>
-                    <button class="visibility-toggle" id="visibilityToggle2"><i class="fa-solid fa-eye"></i></button>
-                </div>
-                
-                <div class="game-board" id="gameBoard2"></div>
-            
-                <div class="button-list">
-                    <button class="menu-button horizontal-button active" id="player2HorizontalBtn">Horizontal</button>
-                    <button class="menu-button vertical-button" id="player2VerticalBtn">Vertical</button>
-                    <button class="menu-button reset-button" id="player2ResetBtn">Reset</button>
-                    <button class="menu-button random-button" id="player2RandomBtn">Random</button>
-                </div>
-            
-                <ul class="ship-list">
-                    <li class="ship-list__item">
-                        <h4>Battleship</h4>
-                        <div class="img-container" data-container="battleship">
-                            <img src="../src/assets/Battleships/battleship.svg" class="ship__img" id="player2BattleshipImg" data-ship="battleship" draggable="true" alt="Battleship">
+
+                    <ul class="ship-list">
+                        <li class="ship-list__item">
+                            <h4>Battleship</h4>
+                            <div class="img-container" data-container="battleship">
+                                <img src="../src/assets/Battleships/battleship.svg" class="ship__img" id="player1BattleshipImg" data-ship="battleship" draggable="true" alt="Battleship" />
+                            </div>
+                        </li>
+                        <li class="ship-list__item">
+                            <h4>Submarine</h4>
+                            <div class="img-container" data-container="submarine">
+                                <img src="../src/assets/Battleships/submarine.svg" class="ship__img" id="player1SubmarineImg" data-ship="submarine" draggable="true" alt="Submarine" />
+                            </div>
+                        </li>
+                        <li class="ship-list__item">
+                            <h4>Carrier</h4>
+                            <div class="img-container" data-container="carrier">
+                                <img src="../src/assets/Battleships/carrier.svg" class="ship__img" id="player1CarrierImg" data-ship="carrier" draggable="true" alt="Carrier" />
+                            </div>
+                        </li>
+                        <li class="ship-list__item">
+                            <h4>Cruiser</h4>
+                            <div class="img-container" data-container="cruiser">
+                                <img src="../src/assets/Battleships/cruiser.svg" class="ship__img" id="player1CruiserImg" data-ship="cruiser" draggable="true" alt="Cruiser" />
+                            </div>
+                        </li>
+                        <li class="ship-list__item">
+                            <h4>Destroyer</h4>
+                            <div class="img-container" data-container="destroyer">
+                                <img src="../src/assets/Battleships/destroyer.svg" class="ship__img" id="player1DestroyerImg" data-ship="destroyer" draggable="true" alt="Destroyer" />
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="player-two-container player-container">
+                    <div class="player-container__upper-row">
+                        <div class="dropdown-container row">
+                            <label for="player2Dropdown">Player Two:</label>
+                            <select id="player2Dropdown" name="player2Dropdown">
+                                <option value="Human">Human</option>
+                                <option value="RandomAI">Random AI</option>
+                                <option value="ProbMapAI">Probability Map AI</option>
+                            </select>
                         </div>
-                    </li>
-                    <li class="ship-list__item">
-                        <h4>Submarine</h4>
-                        <div class="img-container" data-container="submarine">
-                            <img src="../src/assets/Battleships/submarine.svg" class="ship__img" id="player2SubmarineImg" data-ship="submarine" draggable="true" alt="Submarine">
-                        </div>
-                    </li>
-                    <li class="ship-list__item">
-                        <h4>Carrier</h4>
-                        <div class="img-container" data-container="carrier">
-                            <img src="../src/assets/Battleships/carrier.svg" class="ship__img" id="player2CarrierImg" data-ship="carrier" draggable="true" alt="Carrier">
-                        </div>
-                    </li>
-                    <li class="ship-list__item">
-                        <h4>Cruiser</h4>
-                        <div class="img-container" data-container="cruiser">
-                            <img src="../src/assets/Battleships/cruiser.svg" class="ship__img" id="player2CruiserImg" data-ship="cruiser" draggable="true" alt="Cruiser">
-                        </div>
-                    </li>
-                    <li class="ship-list__item">
-                        <h4>Destroyer</h4>
-                        <div class="img-container" data-container="destroyer">
-                            <img src="../src/assets/Battleships/destroyer.svg" class="ship__img" id="player2DestroyerImg" data-ship="destroyer" draggable="true" alt="Destroyer">
-                        </div>
-                    </li>
-                </ul>
+                        <button class="visibility-toggle can-click" id="visibilityToggle2"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+
+                    <div class="game-board" id="gameBoard2"></div>
+
+                    <div class="button-list">
+                        <button class="menu-button horizontal-button active" id="player2HorizontalBtn">Horizontal</button>
+                        <button class="menu-button vertical-button" id="player2VerticalBtn">Vertical</button>
+                        <button class="menu-button reset-button" id="player2ResetBtn">Reset</button>
+                        <button class="menu-button random-button" id="player2RandomBtn">Random</button>
+                    </div>
+
+                    <ul class="ship-list">
+                        <li class="ship-list__item">
+                            <h4>Battleship</h4>
+                            <div class="img-container" data-container="battleship">
+                                <img src="../src/assets/Battleships/battleship.svg" class="ship__img" id="player2BattleshipImg" data-ship="battleship" draggable="true" alt="Battleship" />
+                            </div>
+                        </li>
+                        <li class="ship-list__item">
+                            <h4>Submarine</h4>
+                            <div class="img-container" data-container="submarine">
+                                <img src="../src/assets/Battleships/submarine.svg" class="ship__img" id="player2SubmarineImg" data-ship="submarine" draggable="true" alt="Submarine" />
+                            </div>
+                        </li>
+                        <li class="ship-list__item">
+                            <h4>Carrier</h4>
+                            <div class="img-container" data-container="carrier">
+                                <img src="../src/assets/Battleships/carrier.svg" class="ship__img" id="player2CarrierImg" data-ship="carrier" draggable="true" alt="Carrier" />
+                            </div>
+                        </li>
+                        <li class="ship-list__item">
+                            <h4>Cruiser</h4>
+                            <div class="img-container" data-container="cruiser">
+                                <img src="../src/assets/Battleships/cruiser.svg" class="ship__img" id="player2CruiserImg" data-ship="cruiser" draggable="true" alt="Cruiser" />
+                            </div>
+                        </li>
+                        <li class="ship-list__item">
+                            <h4>Destroyer</h4>
+                            <div class="img-container" data-container="destroyer">
+                                <img src="../src/assets/Battleships/destroyer.svg" class="ship__img" id="player2DestroyerImg" data-ship="destroyer" draggable="true" alt="Destroyer" />
+                            </div>
+                        </li>
+                    </ul>
+                </section>
             </section>
-        </section>
-        <button id="startBtn">Start</button>
-    </main>
-</body>
+            <button id="startBtn">Start</button>
+        </main>
+    </body>
 </html>

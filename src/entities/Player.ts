@@ -25,11 +25,7 @@ export abstract class Player {
 abstract class AIPlayer extends Player {
     protected localGrid: HTMLDivElement[][] = [];
 
-    constructor(
-        name: string,
-        gameBoard: GameBoard,
-        protected thinkTime: number,
-    ) {
+    constructor(name: string, gameBoard: GameBoard) {
         super(name, gameBoard);
     }
 }
@@ -62,13 +58,11 @@ export class Human extends Player {
 }
 
 export class RandomAI extends AIPlayer {
-    constructor(name: string, gameBoard: GameBoard, thinkTime: number = 1000) {
-        super(name, gameBoard, thinkTime);
+    constructor(name: string, gameBoard: GameBoard) {
+        super(name, gameBoard);
     }
 
     public async play(game: Game): Promise<boolean> {
-        await new Promise<void>((resolve) => setTimeout(() => resolve(), this.thinkTime));
-
         return new Promise<boolean>((resolve) => {
             const otherBoard = game.otherPlayer.gameBoard;
             if (this.localGrid.length === 0) this.initLocalGrid(otherBoard);
@@ -108,14 +102,12 @@ export class ProbMapAI extends AIPlayer {
     constructor(
         name: string,
         gameBoard: GameBoard,
-        thinkTime: number = 1000,
         private probMap = new ProbMap(),
     ) {
-        super(name, gameBoard, thinkTime);
+        super(name, gameBoard);
     }
 
     public async play(game: Game): Promise<boolean> {
-        await new Promise<void>((resolve) => setTimeout(() => resolve(), this.thinkTime));
         return new Promise<boolean>((resolve) => {
             const otherBoard = game.otherPlayer.gameBoard;
             this.probMap.genProbMap(game);

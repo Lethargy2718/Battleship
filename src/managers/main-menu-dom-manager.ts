@@ -18,12 +18,14 @@ const visibilityToggleBtns = document.querySelectorAll(".visibility-toggle");
 
 visibilityToggleBtns.forEach((btn) => {
     btn.addEventListener("click", (e: MouseEvent) => {
-        const section = btn.closest(".player-container");
+        const board = btn.closest("section")?.querySelector(".game-board");
         const i = btn.querySelector("i");
-        if (!section || !i) return;
-        section.classList.toggle("dark-overlay");
-        i.classList.toggle("fa-eye");
-        i.classList.toggle("fa-eye-slash");
+        console.log(board);
+        if (!board || !i) return;
+        board.classList.add("dark-overlay");
+        i.classList.add("fa-eye");
+        i.classList.add("fa-eye-slash");
+        btn.classList.remove("can-click");
     });
 });
 

@@ -1,4 +1,4 @@
-import { CellState, Ship, ShipPlacement } from "../types";
+import { CellState, Coordinate, Ship, ShipPlacement } from "../types";
 import { genImgEl } from "../utils/create-image-element";
 import { placeShip } from "../utils/place-ship";
 import { ShipEntity } from "./Ship";
@@ -6,14 +6,14 @@ import { ShipEntity } from "./Ship";
 export class GameBoard {
     public shipPlacementMap: Record<Ship, Omit<ShipPlacement, "ship">>;
     public shipInstances: Record<Ship, ShipEntity>;
+    public sunkShipPlacementArr: ShipPlacement[] = [];
 
     constructor(
-        private boardEl: HTMLDivElement,
+        public boardEl: HTMLDivElement,
         public boardHTMLMatrix: HTMLDivElement[][],
         public boardMatrix: CellState[][],
-        private shipPlacementArr: ShipPlacement[],
+        public shipPlacementArr: ShipPlacement[],
     ) {
-        this.shipPlacementMap = this.mapShipsToPlacementData(this.shipPlacementArr);
         this.shipInstances = this.createShipInstances(this.shipPlacementArr);
     }
 
@@ -52,7 +52,7 @@ export class GameBoard {
         const ship = this.shipInstances[cellState];
         ship.hit();
         if (ship.isSunk()) {
-            this.sink(ship);
+            this.sink(ship, { x, y });
             return "Sunk";
         }
         this.boardMatrix[x][y] = "Hit";
@@ -60,28 +60,16 @@ export class GameBoard {
         return "Hit";
     }
 
-    private sink(ship: ShipEntity): void {
-        const shipPlacement = this.shipPlacementMap[ship.name];
+    private sink(ship: ShipEntity, boom: Coordinate): void {
+        this.boardHTMLMatrix[boom.x][boom.y].classList.add("boom");
+        const shipPlacement = this.shipPlacementArr.find((obj) => obj.ship === ship.name);
         shipPlacement.cells.forEach((cell) => {
             const { x, y } = cell;
             this.boardHTMLMatrix[x][y].classList.add("sunk");
             this.boardMatrix[x][y] = "Sunk";
         });
         placeShip(shipPlacement.startingCell, shipPlacement.direction, ship.name, genImgEl(ship.name), this.boardEl);
-    }
-
-    private mapShipsToPlacementData(shipPlacementArr: ShipPlacement[]): Record<Ship, Omit<ShipPlacement, "ship">> {
-        return shipPlacementArr.reduce(
-            (acc, obj) => {
-                acc[obj.ship] = {
-                    direction: obj.direction,
-                    startingCell: obj.startingCell,
-                    cells: obj.cells,
-                };
-                return acc;
-            },
-            {} as Record<Ship, Omit<ShipPlacement, "ship">>,
-        );
+        this.sunkShipPlacementArr.push(shipPlacement);
     }
 
     private createShipInstances(shipPlacementArr: ShipPlacement[]): Record<Ship, ShipEntity> {
@@ -93,5 +81,13 @@ export class GameBoard {
             },
             {} as Record<Ship, ShipEntity>,
         );
+    }
+
+    public resetBoard() {
+        // Iterate over all ships on the board
+        const shipContainers = this.boardEl?.querySelectorAll(".board__ship-container");
+        shipContainers?.forEach((container) => {
+            container.remove();
+        });
     }
 }

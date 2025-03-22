@@ -35,7 +35,7 @@ export class PlayerSection {
     private bindEventListeners() {
         this.horizontalBtn.addEventListener("click", this.onHorizontalBtnClicked);
         this.verticalBtn.addEventListener("click", this.onVerticalBtnClicked);
-        this.resetBtn.addEventListener("click", this.resetPlayer);
+        this.resetBtn.addEventListener("click", this.onResetBtnClicked);
         this.randomBtn.addEventListener("click", this.onRandomBtnClicked);
     }
 
@@ -50,6 +50,11 @@ export class PlayerSection {
         this.verticalBtn.classList.add("active");
         this.horizontalBtn.classList.remove("active");
     };
+
+    private onResetBtnClicked = () => {
+        this.resetPlayer();
+        this.dragManager.bindEventListeners();
+    }
 
     private resetPlayer = () => {
         this.resetBoard();

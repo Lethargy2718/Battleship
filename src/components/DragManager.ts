@@ -21,7 +21,7 @@ export class DragManager {
         this.bindEventListeners();
     }
 
-    private bindEventListeners() {
+    public bindEventListeners() {
         const images: HTMLImageElement[] = Array.from(this.shipList.querySelectorAll(".ship__img"));
         images.forEach((img) => {
             (img as HTMLImageElement).addEventListener("dragstart", this.onDragStart);

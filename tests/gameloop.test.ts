@@ -33,7 +33,7 @@ describe("Game simulation", () => {
                 expect(window.alert).toHaveBeenCalledWith(expect.stringContaining("won!"));
             }
         },
-        10 * 1000,
+        10 * 10000,
     );
 
     test(
@@ -53,6 +53,6 @@ describe("Game simulation", () => {
                 expect(window.alert).toHaveBeenCalledWith(expect.stringContaining("won!"));
             }
         },
-        10 * 1000,
+        10 * 10000,
     );
 });

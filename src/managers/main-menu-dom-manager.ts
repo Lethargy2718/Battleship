@@ -20,7 +20,6 @@ visibilityToggleBtns.forEach((btn) => {
     btn.addEventListener("click", (e: MouseEvent) => {
         const board = btn.closest("section")?.querySelector(".game-board");
         const i = btn.querySelector("i");
-        console.log(board);
         if (!board || !i) return;
         board.classList.add("dark-overlay");
         i.classList.add("fa-eye");

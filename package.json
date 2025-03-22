@@ -18,7 +18,7 @@
         "push": "git add . && git commit -m",
         "postpush": "git push origin main",
         "predeploy": "git branch gh-pages || true",
-        "deploy": "git checkout gh-pages && git merge main --no-edit && npm run build && git add dist -f && git commit -m 'Deployment commit' && git subtree push --prefix dist origin gh-pages --force && git checkout main"
+        "deploy": "git checkout gh-pages && git merge main --no-edit && npm run build && git add dist -f && git commit -m 'Deployment commit' && git subtree push --prefix dist origin gh-pages && git checkout main"
     },
     "keywords": [],
     "author": "",

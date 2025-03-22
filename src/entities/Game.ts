@@ -90,7 +90,7 @@ export default class Game {
 
     // Only called after switching players
     private async pvpTurnSwitch() {
-        if (!(this.playerOne instanceof Human && this.playerTwo instanceof Human)) return;
+        if (!this.pvp) return;
         await this.blackout();
         this.otherPlayer.gameBoard.resetBoard();
         fillBoard(this.otherPlayer.gameBoard.sunkShipPlacementArr, createShipToImg(), this.otherPlayer.gameBoard.boardEl);
@@ -101,6 +101,7 @@ export default class Game {
 
     // Only called after switching players
     private async blackout() {
+        if (!this.pvp) return;
         this.players.forEach((player) => {
             player.gameBoard.boardEl.classList.add("dark-overlay");
             player.gameBoard.boardEl.classList.remove("current-board");
@@ -119,5 +120,9 @@ export default class Game {
                 resolve();
             });
         });
+    }
+
+    get pvp() {
+        return this.playerOne instanceof Human && this.playerTwo instanceof Human;
     }
 }

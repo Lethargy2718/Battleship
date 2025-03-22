@@ -54,7 +54,7 @@ export class PlayerSection {
     private onResetBtnClicked = () => {
         this.resetPlayer();
         this.dragManager.bindEventListeners();
-    }
+    };
 
     private resetPlayer = () => {
         this.resetBoard();

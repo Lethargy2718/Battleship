@@ -842,6 +842,7 @@ select {
         justify-content: space-evenly;
     }
 }
+
 @media (max-width: 480px) {
     #title {
         font-size: 1.8rem;

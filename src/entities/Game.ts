@@ -30,8 +30,8 @@ export default class Game {
             if (!anotherTurn) {
                 // If the current player won't play another turn..
                 await this.wait(); // ..wait a little..
-                this.nextPlayer(); // ..then switch.
-                await this.pvpTurnSwitch(); // ..handle blackout and filling boards..
+                this.nextPlayer(); // ..switch..
+                await this.pvpTurnSwitch(); // ..then handle blackout and filling boards.
             } else if (!(this.currentPlayer instanceof Human)) await this.wait();
         }
     }

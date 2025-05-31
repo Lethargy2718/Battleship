@@ -3,7 +3,7 @@ import { checkPlacement } from "./check-placement";
 import createGridMatrix from "./create-grid-matrix";
 import { updateGrid } from "./update-grid";
 
-// This function most only be called after resetting the board.
+// This function must only be called after resetting the board.
 export function createRandomBoard() {
     const sortedShips = Object.values(Ship).sort((a, b) => shipToLength[b] - shipToLength[a]);
     const grid = createGridMatrix();
